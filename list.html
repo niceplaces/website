@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista luoghi di Nice Places</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>Numero</th>
+        <th>Luogo</th>
+        <th>Area</th>
+        <th>Facebook</th>
+        <th>Instagram</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+
+    function requestInstagramLikes(url) {
+        $.ajax({
+            url: url,
+            type: "GET",
+            contentType: "text/html",
+            success: function (result) {
+                if (result){
+                    console.log(result);
+                } else {
+                    alert("Si è verificato un errore!");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                alert("Si è verificato un errore!");
+            }
+        });
+    }
+
+
+    $.ajax({
+        url: "https://www.niceplaces.it/data/query.php?version=v3&mode=release&p1=getlist",
+        type: "GET",
+        contentType: "application/json",
+        success: function (result) {
+            const body = $("tbody");
+            if (result){
+                console.log(result);
+                for (let i = 0; i < result.length; i++){
+                    let fb_link = '';
+                    let ig_link = '';
+                    if (result[i].facebook){
+                        fb_link = '<a href="' + result[i].facebook + '" target="_blank">Facebook</a>';
+                    }
+                    if (result[i].instagram){
+                        ig_link = '<a href="' + result[i].instagram + '" target="_blank">Instagram</a>';
+                        //requestInstagramLikes(result[i].instagram);
+                    }
+                    let name = result[i].name;
+                    if (result[i].has_description){
+                        name = "<b>" + name + "</b>";
+                    }
+                    body.append("<tr><td>" + eval(i+1) + "</td><td>" + name + "</td><td>" + result[i].area + "</td>" +
+                        "<td>" + fb_link + "</td><td>" + ig_link + "</td></tr>");
+                }
+            } else {
+                alert("Si è verificato un errore!");
+            }
+        },
+        error: function (error) {
+            console.log(error);
+            alert("Si è verificato un errore!");
+        }
+    });
+</script>
+</html>

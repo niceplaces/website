@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nice Places</title>
+    <link rel="stylesheet" href="css/card_list2.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+        integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+</head>
+
+<body>
+    <div style="overflow-x: hidden">
+        <!-- Prevent right space on mobile -->
+        <div class="background-image"></div>
+        <div id="loader"></div>
+        <div id="myDiv" class="animate-bottom">
+            <div id="area-header">
+                <div id="area-header-overlay">
+                    Area
+                </div>
+            </div>
+            <div class="container-fluid" align="center">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+
+            const base_url = "https://www.niceplaces.it/";
+            //const base_url = "http://localhost/niceplaces/";
+
+            function getURLparam(key) {
+                let array = window.location.search.substr(1).split('=');
+                let i = 0;
+                while (i + 1 < array.length) {
+                    if (array[i] === key) {
+                        return array[i + 1];
+                    }
+                    i += 2;
+                }
+                return null;
+            }
+
+            let array = window.location.href.split('/');
+            let id_string_area = array[array.length - 1];
+            console.log(id_string_area);
+
+            $.ajax({
+                url: base_url + "data/v3/release/areas",
+                type: "GET",
+                contentType: "application/json",
+                success: function (result) {
+                    console.log(result);
+                    for (let i = 0; i < result.length; i++) {
+                        if (result[i].id_string === id_string_area) {
+                            $('#area-header-overlay').html(result[i].name);
+                            if (result[i].image !== "") {
+                                $('#area-header').css("background-image", "url(data/photos/release/" + result[i].image + ")");
+                            }
+                        }
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+            $.ajax({
+                url: base_url + "data/v3/release/places/" + id_string_area,
+                type: "GET",
+                contentType: "application/json",
+                success: function (result) {
+                    console.log(result);
+                    for (let i = 0; i < result.length; i++) {
+                        let html = '<div class="col-lg-3 col-md-4 col-sm-6 col-12">' +
+                            '<a href="" class="place_link">' +
+                            '<div class="card-container">' +
+                            '<div class="place_image">' +
+                            '<div class="place_name"></div>' +
+                            '</div>' +
+                            '</div></a>' +
+                            '</div>';
+                        $('.container-fluid .row').append(html);
+                    }
+                    for (let i = 0; i < result.length; i++) {
+                        if (result[i].image !== "") {
+                            $('body').find('.place_image').eq(i).css("background-image", "url(data/photos/release/" + result[i].image + ")");
+                        }
+                        $('body').find('.place_name').eq(i).html(result[i].name);
+                        $('body').find('.place_link').eq(i).attr('href', window.location.href + "/" + result[i].id_string);
+                    }
+                    showPage();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+            function showPage() {
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("myDiv").style.display = "block";
+            }
+
+        });
+    </script>
+</body>
+
+</html>

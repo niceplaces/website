@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ricerca</title>
+</head>
+<body>
+Nome: <input id="name" type="text" name="name" /><br>
+<div id="list"></div>
+<script src="lib/js/jquery-3.2.1.min.js"></script>
+<script type="application/javascript">
+
+    $(document).ready(function () {
+
+        let base_url = "https://www.niceplaces.it/";
+        let url = base_url + "data/query.php?version=v2&mode=debug&p1=getnearestplaces&p2=44.494533&p3=11.3858214&p4=1000";
+        console.log(url);
+        let places = [];
+        $.ajax({
+            url: url,
+            type: "GET",
+            contentType: "application/json",
+            success: function (result) {
+                console.log(result);
+                places = result;
+                for (let i = 0; i < result.length; i++){
+                    $("#list").append(result[i].name + "<br/>")
+                }
+            },
+            error: function (error) {
+                console.log(url);
+                console.log(error);
+            }
+        });
+
+        $("#name").keyup(function () {
+            let val = $("#name").val().toLowerCase();
+            places.sort(function(a, b) {
+                return levenshteinDistance(val, a.name.toLowerCase()) - levenshteinDistance(val, b.name.toLowerCase());
+            });
+            $("#list").empty();
+            for (let i = 0; i < places.length; i++){
+                if (places[i].name.toLowerCase().includes(val)){
+                    $("#list").append(places[i].name + "<br/>");
+                }
+            }
+        });
+    });
+
+    // https://github.com/trekhleb/javascript-algorithms/blob/master/src/algorithms/string/levenshtein-distance/levenshteinDistance.js
+    /**
+     * @param {string} a
+     * @param {string} b
+     * @return {number}
+     */
+    function levenshteinDistance(a, b) {
+        // Create empty edit distance matrix for all possible modifications of
+        // substrings of a to substrings of b.
+        const distanceMatrix = Array(b.length + 1).fill(null).map(() => Array(a.length + 1).fill(null));
+
+        // Fill the first row of the matrix.
+        // If this is first row then we're transforming empty string to a.
+        // In this case the number of transformations equals to size of a substring.
+        for (let i = 0; i <= a.length; i += 1) {
+            distanceMatrix[0][i] = i;
+        }
+
+        // Fill the first column of the matrix.
+        // If this is first column then we're transforming empty string to b.
+        // In this case the number of transformations equals to size of b substring.
+        for (let j = 0; j <= b.length; j += 1) {
+            distanceMatrix[j][0] = j;
+        }
+
+        for (let j = 1; j <= b.length; j += 1) {
+            for (let i = 1; i <= a.length; i += 1) {
+                const indicator = a[i - 1] === b[j - 1] ? 0 : 1;
+                distanceMatrix[j][i] = Math.min(
+                    distanceMatrix[j][i - 1] + 1, // deletion
+                    distanceMatrix[j - 1][i] + 1, // insertion
+                    distanceMatrix[j - 1][i - 1] + indicator, // substitution
+                );
+            }
+        }
+
+        return distanceMatrix[b.length][a.length];
+    }
+</script>
+</body>
+</html>
