@@ -1,0 +1,94 @@
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
+    .sub-container {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .sub-container {
+        max-width: 70%;
+    }
+}
+
+.sub-container{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+textarea {
+    height: 300px;
+}
+
+.char_counter {
+    float: right;
+}
+
+#btn_save {
+    margin: 10px;
+}
+
+.row {
+    margin: 5px;
+}
+
+.event-id, #id_user {
+    display: none;
+}
+
+#btn_edit_areas, #btn_edit_places {
+    align-self: center;
+    width: 70%;
+    margin: auto;
+}
+
+#modal_last_edits table {
+    width: 100%;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#img-upload, #selected-photo {
+    width: 100%;
+    height: 300px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+img.thumb{
+    max-height: 100px;
+}
+
+#btn_logout {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#table_inserted, #table_updated {
+    font-size: small;
+}
+
+.flag{
+    width: 20px;
+}
