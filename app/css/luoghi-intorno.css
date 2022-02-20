@@ -1,0 +1,98 @@
+body {
+    font-size: 11px !important;
+}
+
+a, a:hover {
+    color: #212529 !important;
+    text-decoration: none !important;
+}
+
+.container {
+    background-size: cover;
+    background: rgba(255, 255, 255, 0.7);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+.container-fluid, col-nearest-places {
+    height: 100%;
+}
+
+.col-map {
+    padding: 0 !important;
+    height: 70%;
+}
+
+.col-nearest-places {
+    overflow-y: hidden;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.col-nearest-places img {
+    width: 80px;
+    margin: 0;
+}
+
+#place_details {
+    font-weight: bold;
+    padding-right: 0;
+}
+
+#place_area {
+    font-size: 30px;
+}
+
+#place_name {
+    font-size: 50px;
+}
+
+#place_details, #place_description {
+    padding: 10px;
+}
+
+#place_name {
+    line-height: 1;
+}
+
+#place_image {
+    height: 400px;
+    background-image: url("../data/photos/release/siena.jpg");
+    background-position: center;
+    background-size: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#links img {
+    height: 30px;
+    width: 30px;
+    opacity: 0.8;
+    margin: 5px;
+}
+
+.credits {
+    font-size: small;
+    font-style: italic;
+}
+
+#desc_source {
+    text-align: right;
+}
+
+.row-places-list {
+    white-space: nowrap;
+}
+
+.store {
+    font-size: small;
+    font-style: italic;
+    text-align: center;
+    margin: 10px;
+}
+
+#links {
+    text-align: right;
+}
