@@ -20,7 +20,7 @@ In 2022, the project became open source to allow anyone to contribute.
 
 The source code available in this repository is licensed under the [MIT license](https://github.com/niceplaces/website/blob/main/LICENSE), however this repository contains digital assets to which the following terms apply.
 
-*The logos, names and texts of Pro Loco Sovicille (www.prolocosovicille.it), Cammino d'Etruria (www.facebook.com/camminodetruria) and Pro Loco Murlo (prolocomurlo.it) are used with the permission of the respective associations and belong to them.*
+*The logos, names and texts of [Pro Loco Sovicille](http://www.prolocosovicille.it/), [Cammino d'Etruria](https://www.facebook.com/camminodetruria/) and [Pro Loco Murlo](https://prolocomurlo.it/) are used with the permission of the respective associations and belong to them.*
 
 *The profile photos of people appearing on the site are used under their permission and belong to them.*
 
