@@ -1,5 +1,6 @@
 <?php
 
+require_once 'protected/config.php';
 require_once 'connect_db.php';
 
 require_once 'dao/DaoEvents.php';

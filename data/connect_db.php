@@ -1,7 +1,5 @@
 <?php
 
-require_once "../protected/config.php";
-
 ini_set('max_execution_time', 300);
 
 define("VERSION", "v3");

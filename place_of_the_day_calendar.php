@@ -10,5 +10,5 @@ $start =  strtotime(date("Y-m-d", time() - $one_day * 7));
 $end = strtotime(date("Y-m-d", time() + $one_day * 365));
 for ($i = $start; $i < $end; $i += $one_day){
     $placeOfTheDay = $dao->getPlaceOfTheDay(strtoupper(get_lang()), $i);
-    echo date("Y-m-d", $i) . " - ". $placeOfTheDay["name"] . " (" . $placeOfTheDay["area"]. ")<br/>";
+    echo date("Y-m-d", $i) . " - <a href=\"social/index.php?day=".$i."\">". $placeOfTheDay["name"] . " (" . $placeOfTheDay["area"]. ")</a><br/>";
 }
