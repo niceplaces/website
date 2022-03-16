@@ -44,25 +44,27 @@ if ($lang == "en") {
 	<div id="description" style="display: none"><?php echo $placeOfTheDay["description"] ?></div>
 	<div id="author-id" style="display: none"><?php echo $placeOfTheDay["author"] ?></div>
 	<div id="author" style="display: none"><?php 
-	switch ($lang){
-		case "it":
-			echo "Autore: ";
-			break;
-		case "en":
-			echo "Author: ";
-			break;
-		default:
-			break;
-	}
-	switch ($placeOfTheDay["author"]){
-		case "2":
-			echo "Pro Loco Sovicille";
-			break;
-		case "3":
-			echo "Cammino d'Etruria";
-			break;
-		default:
-			break;
+	if ($placeOfTheDay["author"] != 1){
+		switch ($lang){
+			case "it":
+				echo "Autore: ";
+				break;
+			case "en":
+				echo "Author: ";
+				break;
+			default:
+				break;
+		}
+		switch ($placeOfTheDay["author"]){
+			case "2":
+				echo "Pro Loco Sovicille";
+				break;
+			case "3":
+				echo "Cammino d'Etruria";
+				break;
+			default:
+				break;
+		}
 	}
 	?></div>
 	<div id="name" style="display: none"><?php echo $placeOfTheDay["name"] ?></div>
@@ -97,9 +99,7 @@ if ($lang == "en") {
 			let width = 1080
 			let margin = 30
 			let radius = 50
-			createImage(ctx)
 			let text = wrapText(ctx, description, 440, 50)
-			console.log(text)
 			let lines_per_frame = 18
 			for (let i = 0; i <= text.length / lines_per_frame; i++) {
 				let begin = i * lines_per_frame
@@ -123,9 +123,9 @@ if ($lang == "en") {
 					dHeight = width - margin * 2
 				} else {
 					dx = margin
-					dy = margin - ((width - margin * 2) * ar) / 2 + width / 2
+					dy = margin - ((width - margin * 2) * (1/ar)) / 2 + width / 2
 					dWidth = width - margin * 2
-					dHeight = (width - margin * 2) * ar
+					dHeight = (width - margin * 2) * (1/ar)
 				}
 				ctx.drawImage(img, dx, dy, dWidth, dHeight)
 
@@ -219,7 +219,6 @@ if ($lang == "en") {
 			}
 
 			function createDesc(text, canvas_id) {
-				console.log(text, canvas_id)
 				let c = document.getElementById("canvas" + canvas_id)
 				c.style.display = "inline"
 				let ctx = c.getContext("2d")
@@ -239,11 +238,10 @@ if ($lang == "en") {
 					dHeight = width - margin * 2
 				} else {
 					dx = margin
-					dy = margin - ((width - margin * 2) * ar) / 2 + width / 2
+					dy = margin - ((width - margin * 2) * (1/ar)) / 2 + width / 2
 					dWidth = width - margin * 2
-					dHeight = (width - margin * 2) * ar
+					dHeight = (width - margin * 2) * (1/ar)
 				}
-				console.log(dx, dy, dWidth, dHeight)
 				ctx.drawImage(img, dx, dy, dWidth, dHeight)
 
 				let center_x = 150
