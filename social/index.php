@@ -89,7 +89,11 @@ if ($lang == "en") {
 
 			let social_text = document.getElementById("text")
 			social_text.innerHTML = name + " (#" + area + ", #" + region + ")<br/><br/>" +
-				description.replaceAll('\n', '<br/>') + "<br/><br/>" +
+				description.replaceAll('\n', '<br/>') + "<br/><br/>"
+			if (author !== ""){
+				social_text.innerHTML += author + "<br/><br/>"
+			}
+			social_text.innerHTML +=
 				"#niceplaces #" + area.toLowerCase() + " #" + region.toLowerCase() + " #italia " +
 				"#igers" + area.toLowerCase() + " #igers" + region.toLowerCase() + " " +
 				"#volgo" + area.toLowerCase() + " #volgo" + region.toLowerCase() + " " +
@@ -99,6 +103,7 @@ if ($lang == "en") {
 			let width = 1080
 			let margin = 30
 			let radius = 50
+			createImage(ctx)
 			let text = wrapText(ctx, description, 440, 50)
 			let lines_per_frame = 18
 			for (let i = 0; i <= text.length / lines_per_frame; i++) {
