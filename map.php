@@ -1,5 +1,5 @@
 <?php
-require_once '../protected/config.php';
+require_once 'data/protected/config.php';
 ?>
 <!doctype html>
 <html>
@@ -141,7 +141,7 @@ require_once '../protected/config.php';
         });
     }
 
-    let url = base_url + "data/query.php?version=v3&mode=debug&p1=getnearestplaces&p2=" + 43 + "&p3=" + 11 + "&p4=10000";
+    let url = base_url + "data/query.php?version=v3&mode=release&p1=getnearestplaces&p2=" + 43 + "&p3=" + 11 + "&p4=10000";
     console.log(url);
     $.ajax({
         url: url,

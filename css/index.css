@@ -49,11 +49,9 @@ a:active, a:hover {
 }
 
 a.partner img {
-    width: 150px;
+    width: 50px;
     border-radius: 75px;
     opacity: 0.5;
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
 }
 
 a.partner:hover img {

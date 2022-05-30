@@ -7,6 +7,10 @@
     "it": "Altri luoghi da",
     "en": "Other locations from"
   },
+  "associazioni": {
+    "it": "Associazioni",
+    "en": "Associations"
+  },
   "chi-siamo": {
     "it": "Chi siamo",
     "en": "About us"
@@ -14,6 +18,10 @@
   "collaborazioni": {
     "it": "Collaborazioni",
     "en": "Partners"
+  },
+  "contributori": {
+    "it": "Contributori",
+    "en": "Contributors"
   },
   "contatti": {
     "it": "Contatti",
@@ -78,6 +86,10 @@
   "parlano-di-noi": {
     "it": "Parlano di noi",
     "en": "Who talks about us"
+  },
+  "persone": {
+    "it": "Persone",
+    "en": "People"
   },
   "regioni": {
     "it": "Regioni",
