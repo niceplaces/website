@@ -60,6 +60,7 @@ $(document).ready(function () {
             type: "GET",
             contentType: "application/json",
             success: function (result) {
+                console.log(result)
                 loadedJson = result;
                 editedJson = $.extend(true, {}, result);
                 let position = {lat: 0, lng: 0};
@@ -76,6 +77,7 @@ $(document).ready(function () {
                 $('#description_en').val(result.description_en);
                 $('#desc_sources').val(result.desc_sources);
                 $('#wiki_url').val(result.wiki_url);
+                $('#wiki_url_en').val(result.wiki_url_en);
                 $('#facebook').val(result.facebook);
                 $('#instagram').val(result.instagram);
                 $(".char_counter span").html($(".char_counter").parent().find('textarea').val().length);
@@ -138,6 +140,7 @@ $(document).ready(function () {
         editedJson.description_en = $("#description_en").val().replace(/'/g, "\\'");
         editedJson.desc_sources = $("#desc_sources").val();
         editedJson.wiki_url = $("#wiki_url").val();
+        editedJson.wiki_url_en = $("#wiki_url_en").val();
         editedJson.facebook = $("#facebook").val();
         editedJson.instagram = $("#instagram").val();
         editedJson.image = $("#photo").val();

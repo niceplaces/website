@@ -50,7 +50,7 @@ class DaoPlacesV3
     {
         $sql = "SELECT places.id AS id, places.id_string AS id_string_place, areas.id_string AS id_string_area,
                 places.name AS place_name, places.description AS description, places.description_en AS description_en, 
-                places.image AS image, areas.name AS area_name, facebook, instagram
+                places.image AS image, areas.name AS area_name, wiki_url, wiki_url_en, facebook, instagram
                 FROM " . $this->table_places . " AS places 
                 INNER JOIN " . $this->table_areas . " AS areas ON places.id_area = areas.id 
                 WHERE places.latitude <> 0 AND places.longitude <> 0
@@ -67,6 +67,8 @@ class DaoPlacesV3
                 'name' => $row["place_name"],
                 'area' => $row["area_name"],
                 'image' => $row["image"],
+                'wiki_url' => $row["wiki_url"],
+                'wiki_url_en' => $row["wiki_url_en"],
                 'has_description' => $hasDescription,
                 'has_description_en' => $hasDescriptionEn,
                 'facebook' => $row["facebook"],
@@ -94,7 +96,9 @@ class DaoPlacesV3
                 'has_description' => $hasDescription,
                 'has_description_en' => $hasDescriptionEn,
                 'author' => $row["id_author"],
-                'has_image' => $hasImage
+                'has_image' => $hasImage,
+                'wiki_url' => $row["wiki_url"],
+                'wiki_url_en' => $row["wiki_url_en"]
             );
             array_push($array, $object);
         }
@@ -160,9 +164,52 @@ class DaoPlacesV3
                 array_push($array, $object);
             }
         }
+        if ($this->mode == "debug"){
+            //$array = array_merge($array, $this->getNearestFromDBPedia($lat, $lon, $km_radius));
+        }
         usort($array, function ($a, $b){
             return $a["distance_km"] > $b["distance_km"];
         });
+        return $array;
+    }
+
+    function getNearestFromDBPedia($lat, $lon, $km_radius)
+    {
+        $km_per_lat_degree = 111.32;
+        $km_per_lon_degree = 40075 * cos($lat) / 360;
+        $max_lat = $lat + $km_radius / $km_per_lat_degree;
+        $min_lat = $lat - $km_radius / $km_per_lat_degree;
+        $max_lon = $lon + $km_radius / $km_per_lon_degree;
+        $min_lon = $lon - $km_radius / $km_per_lon_degree;
+        $csv= file_get_contents("http://localhost/niceplaces/data/dao/sparql_2022-06-19_10-36-38Z.csv");
+        $result = array_map("str_getcsv", explode("\n", $csv));
+        $array = array();
+        for ($i = 1; $i < count($result); $i++) {
+            $row = $result[$i];
+            $distance = $this->distance($lat, $lon, $row[5], $row[6], "K");
+            if ($distance <= $km_radius) {
+                //$hasDescription = (strcmp($row["description"], "") != 0);
+                //$hasDescriptionEn = (strcmp($row["description_en"], "") != 0);
+                $wiki_id = substr($row[0], strrpos($row[0], "/")+1, strlen($row[0]));
+                $object = array(
+                    'id' => null,
+                    'id_string_place' => null,
+                    'id_string_area' => null,
+                    'name' => $row[1],
+                    'name_en' => $row[1],
+                    'latitude' => $row[5],
+                    'longitude' => $row[6],
+                    'image' => $row[7],
+                    'wiki_url' => "https://it.wikipedia.org/wiki/" . $wiki_id,
+                    'wiki_url_en' => "https://en.wikipedia.org/wiki/" . $wiki_id,
+                    'has_description' => null,
+                    'has_description_en' => null,
+                    'author' => null,
+                    'distance_km' => round($distance, 2)
+                );
+                array_push($array, $object);
+            }
+        }
         return $array;
     }
 
@@ -225,6 +272,7 @@ class DaoPlacesV3
                 areas.id_string AS id_area, areas.id_string_en AS id_area_en, 
                 regions.id_string AS id_region, regions.id_string_en AS id_region_en, 
                 places.name as place_name, places.name_en as place_name_en, 
+                places.latitude as place_lat, places.longitude as place_lon,
                 areas.name as area_name, areas.name_en as area_name_en, places.img_credits as img_credits,
                 regions.name as region_name, regions.name_en as region_name_en, places.image as image
                 FROM " . $this->table_places . " AS places 
@@ -253,8 +301,8 @@ class DaoPlacesV3
                 'description_en' => $row["description_en"],
                 'desc_sources' => $row["desc_sources"],
                 'author' => $row["id_author"],
-                'latitude' => $row["latitude"],
-                'longitude' => $row["longitude"],
+                'latitude' => $row["place_lat"],
+                'longitude' => $row["place_lon"],
                 'image' => $row["image"],
                 'img_credits' => $row["img_credits"],
                 'wiki_url' => $row["wiki_url"],
@@ -272,7 +320,8 @@ class DaoPlacesV3
         $sql = "SELECT *, places.id as id, places.id_string AS id_string, places.id_string_en AS id_string_en,
                 areas.id_string as id_area, areas.id_string_en as id_area_en, places.name as place_name, places.name_en as place_name_en, 
                 areas.name as area_name, areas.name_en as area_name_en, places.img_credits as img_credits,
-                regions.name as region_name, regions.name_en as region_name_en, places.image as image
+                regions.name as region_name, regions.name_en as region_name_en, places.image as image,
+                wiki_url, wiki_url_en
                 FROM " . $this->table_places . " AS places 
                 INNER JOIN " . $this->table_areas . " AS areas ON places.id_area = areas.id 
                 INNER JOIN " . $this->table_regions . " AS regions ON areas.id_region = regions.id 
@@ -298,6 +347,8 @@ class DaoPlacesV3
                 'has_description_en' => $hasDescriptionEn,
                 'author' => $row["id_author"],
                 'image' => $row["image"],
+                'wiki_url' => $row["wiki_url"],
+                'wiki_url_en' => $row["wiki_url_en"]
             );
         }
         return $place;

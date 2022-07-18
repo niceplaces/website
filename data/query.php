@@ -6,6 +6,8 @@ header("Content-type:application/json; charset=UTF-8");
 
 require_once 'requires.php';
 
+error_reporting(0);
+
 $conn = mySqlConnect();
 
 $POST = json_decode(file_get_contents('php://input'), true);

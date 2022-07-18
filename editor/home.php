@@ -1,5 +1,5 @@
 <?php
-require_once '../protected/config.php';
+require_once '../data/protected/config.php';
 ?>
 <!doctype html>
 <html lang="it">
@@ -178,8 +178,14 @@ require_once '../protected/config.php';
             </div>
             <div class="row">
                 <div class="col-sm">
-                    <label for="wiki_url">Wikipedia</label>
+                    <label for="wiki_url">Wikipedia (IT)</label>
                     <input type="text" class="form-control" id="wiki_url">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <label for="wiki_url_en">Wikipedia (EN)</label>
+                    <input type="text" class="form-control" id="wiki_url_en">
                 </div>
             </div>
             <div class="row">
