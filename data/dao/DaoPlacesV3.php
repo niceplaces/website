@@ -540,7 +540,8 @@ class DaoPlacesV3
         $sql = "SELECT *, places.id AS id, places.name as place_name, places.name_en as place_name_en, 
                 areas.name as area_name, areas.name_en as area_name_en, regions.name as region_name, 
                 regions.name_en as region_name_en, places.description AS description, places.description_en AS description_en, 
-                places.image AS image, facebook, instagram
+                places.image AS image, places.wiki_url AS wiki_url, places.wiki_url_en AS wiki_url_en,
+                facebook, instagram
                 FROM " . $this->table_places . " AS places 
                 INNER JOIN " . $this->table_areas . " AS areas ON places.id_area = areas.id 
                 INNER JOIN " . $this->table_regions . " AS regions ON areas.id_region = regions.id 
@@ -562,6 +563,8 @@ class DaoPlacesV3
                 'author' => $row["id_author"],
                 'has_description' => $hasDescription,
                 'has_description_en' => $hasDescriptionEn,
+                'wiki_url' => $row["wiki_url"],
+                'wiki_url_en' => $row["wiki_url_en"],
                 'facebook' => $row["facebook"],
                 'instagram' => $row["instagram"],
             );
@@ -575,7 +578,8 @@ class DaoPlacesV3
         $sql = "SELECT *, places.id AS id, places.name as place_name, places.name_en as place_name_en, 
                 areas.name as area_name, areas.name_en as area_name_en, regions.name as region_name, 
                 regions.name_en as region_name_en, places.description AS description, places.description_en AS description_en, 
-                places.image AS image, facebook, instagram
+                places.image AS image, places.wiki_url AS wiki_url, places.wiki_url_en AS wiki_url_en,
+                facebook, instagram
                 FROM " . $this->table_places . " AS places 
                 INNER JOIN " . $this->table_areas . " AS areas ON places.id_area = areas.id 
                 INNER JOIN " . $this->table_regions . " AS regions ON areas.id_region = regions.id 
@@ -597,6 +601,8 @@ class DaoPlacesV3
                 'author' => $row["id_author"],
                 'has_description' => $hasDescription,
                 'has_description_en' => $hasDescriptionEn,
+                'wiki_url' => $row["wiki_url"],
+                'wiki_url_en' => $row["wiki_url_en"],
                 'facebook' => $row["facebook"],
                 'instagram' => $row["instagram"],
             );
