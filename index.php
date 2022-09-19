@@ -28,7 +28,7 @@ require_once "utils.php";
     <meta name="theme-color" content="#185D42">
 
     <link rel="stylesheet" href="<?php echo $BASE_URL ?>css/card_list.css">
-    <link rel="stylesheet" href="<?php echo $BASE_URL ?>css/index.css?v=4">
+    <link rel="stylesheet" href="<?php echo $BASE_URL ?>css/index.css?v=5">
     <link rel="stylesheet" href="<?php echo $BASE_URL ?>css/index_animations.css">
     <link rel="stylesheet" href="<?php echo $BASE_URL ?>css/carousel.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -111,7 +111,7 @@ require_once "utils.php";
                             <?php switch (get_lang()) {
                                 case "it": ?>
                                     <a href='https://play.google.com/store/apps/details?id=com.niceplaces.niceplaces'>
-                                        <img alt='Disponibile su Google Play' class='lang-it google-play-badge' src='https://play.google.com/intl/en_us/badges/images/generic/it_badge_web_generic.png' />
+                                        <img alt='Disponibile su Google Play' class='lang-it google-play-badge-it' src='https://play.google.com/intl/en_us/badges/images/generic/it_badge_web_generic.png' />
                                     </a>
                                     <a href="<?php echo $BASE_URL ?>app/">
                                         <img alt='Disponibile come web app' class='lang-it google-play-badge' src='<?php echo $BASE_URL ?>assets/webapp-badge.png' />
@@ -488,6 +488,21 @@ require_once "utils.php";
                     </div>
                 </div>
             <?php } ?>
+            <?php
+            function contributor_small($name, $img, $link)
+            {
+            ?>
+                <div style="margin: 10px">
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <a href="<?php echo $link ?>">
+                                    <div title="<?php echo $name ?>" class="profile-picture-small" style="background-image: url(<?php echo $img ?>)">
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+            <?php } ?>
             <section>
                 <div class="row">
                     <div class="col">
@@ -496,8 +511,8 @@ require_once "utils.php";
                 </div>
         </div>
         <div class="row">
-            <!--<div class="col">
-                <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="colrow">
                     <div class="col" style="margin-bottom: 10px">
                         <h5 style="text-align: center"><?php echo t("persone") ?></h5>
                     </div>
@@ -505,44 +520,49 @@ require_once "utils.php";
                 <div class="row about-us">
                     <div class="col d-flex justify-content-center">
                         <?php
-                        /*contributor(
-                            "Melania",
-                            $BASE_URL . "assets/profile-pictures/melania.jpg",
-                            "https://www.facebook.com/melania.anichini"
+                        contributor_small(
+                            "Lorenzo",
+                            $BASE_URL . "assets/profile-pictures/lorenzo.jpg",
+                            "https://www.lorenzovainigli.com"
                         );
-                        contributor(
+                        contributor_small(
                             "Dario",
                             $BASE_URL . "assets/profile-pictures/dario.jpg",
                             "https://www.instagram.com/chesidario/"
                         );
-                        contributor(
-                            "Lorenzo",
-                            $BASE_URL . "assets/profile-pictures/lorenzo.jpg",
-                            "https://www.lorenzovainigli.com"
-                        );*/
+                        contributor_small(
+                            "Francesca",
+                            $BASE_URL . "assets/profile-pictures/francesca.jpg",
+                            "https://www.linkedin.com/in/f-mecacci/"
+                        );
+                        contributor_small(
+                            "Melania",
+                            $BASE_URL . "assets/profile-pictures/melania.jpg",
+                            "https://www.facebook.com/melania.anichini"
+                        );
                         ?>
                     </div>
                 </div>
-            </div>-->
-            <div class="col">
-                <!--<div class="colrow">
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="colrow">
                     <div class="col" style="margin-bottom: 10px">
                         <h5 style="text-align: center"><?php echo t("associazioni") ?></h5>
                     </div>
-                </div>-->
+                </div>
                 <div class="row justify-content-center about-us">
                     <?php
-                    contributor(
+                    contributor_small(
                         "Pro Loco Sovicille",
                         $BASE_URL . "assets/icons/proloco.png",
                         "https://www.prolocosovicille.it/"
                     );
-                    contributor(
+                    contributor_small(
                         "Cammino d'Etruria",
                         $BASE_URL . "assets/icons/cammino-d-etruria.jpg",
                         "https://www.facebook.com/camminodetruria/"
                     );
-                    contributor(
+                    contributor_small(
                         "Pro Loco Murlo",
                         $BASE_URL . "assets/icons/proloco-murlo.jpeg",
                         "https://prolocomurlo.it/"
@@ -552,7 +572,7 @@ require_once "utils.php";
             </div>
         </div>
         </section>
-        <section>
+        <section class="mt-5">
             <div class="row counters">
                 <div class="col">
                     <h4><?php echo t("luoghi") ?></h4>

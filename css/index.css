@@ -168,6 +168,10 @@ blockquote .author {
     width: 200px;
 }
 
+.google-play-badge-it {
+    width: 180px;
+}
+
 .banner {
     text-align: center;
 }
@@ -251,6 +255,14 @@ p {
     background-size: cover;
     border-radius: 50px;
     margin-bottom: 10px;
+}
+
+.profile-picture-small {
+    height: 64px;
+    width: 64px;
+    background-size: cover;
+    border-radius: 32px;
+    margin-bottom: 5px;
 }
 
 .slogan {
