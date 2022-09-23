@@ -184,7 +184,7 @@ if (strcmp($place["image"], "") != 0) {
     </div>
 </div>
 <?php include 'footer.php' ?>
-<script type="text/javascript" src="<?php echo $BASE_URL ?>app/js/place.js"></script>
+<script type="text/javascript" src="<?php echo $BASE_URL ?>app/js/place.js?v=2"></script>
 <script type="text/javascript">
 
     let myposition = <?php echo "{lat: ".$place["latitude"].", lng: ".$place["longitude"]."}" ?> ;
@@ -236,9 +236,6 @@ if (strcmp($place["image"], "") != 0) {
             title: 'La mia posizione'
         });
     }
-
-    console.log(BASE_URL + "data/query.php?version=v3&mode=release&p1=getrandomnearest" +
-            "&p2=" + myposition.lat + "&p3=" + myposition.lng + "&p4=8")
 
     $.ajax({
         url: BASE_URL + "data/query.php?version=v3&mode=release&p1=getrandomnearest" +

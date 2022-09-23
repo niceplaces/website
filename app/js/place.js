@@ -5,7 +5,7 @@ $(document).ready(function () {
     });
 
     let photo_filename = $('#photo_filename').text().trim()
-    let photo_url = BASE_URL + "data/image.php?file=" + photo_filename + 
+    let photo_url = BASE_URL + "data/image.php?mode=release&file=" + photo_filename + 
         '&w=' + $('#place_image').width() + '&h=' + $('#place_image').height()
     console.log($('#place_image').width(), $('#place_image').height())
     $('#place_image').css('background-image', 'url(' + photo_url + ')')
@@ -33,7 +33,7 @@ $(document).ready(function () {
             for (let i = 0; i < result.length; i++) {
                 let el = $('#random-places').find('.place_image').eq(i)
                 if (result[i].image !== "") {
-                    el.css("background-image", "url(" + BASE_URL + "data/image.php?file=" + result[i].image + 
+                    el.css("background-image", "url(" + BASE_URL + "data/image.php?mode=release&file=" + result[i].image + 
                     '&w=' + el.width() + '&h=' + el.height() + ")")
                 }
                 let name = result[i].name;
