@@ -19,10 +19,10 @@ $im = null;
 if (!isset($_GET["file"]) || strcmp($_GET["file"], "") == 0){
     $im =  imagecreatefromstring(file_get_contents("../assets/placeholder.jpg"));
 } else {
-    $im =  imagecreatefromstring(file_get_contents('photos/release/'.$_GET['file']));
+    $im =  imagecreatefromstring(file_get_contents('photos/'.$_GET['mode'].'/'.$_GET['file']));
 }
 
-if (isset($_GET["w"]) && isset($_GET["w"])){
+if (isset($_GET["w"]) && isset($_GET["h"])){
     $width  = imagesx($im);
     $height = imagesy($im);
     if ($DEBUG){

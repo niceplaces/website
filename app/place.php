@@ -264,7 +264,7 @@ if (strcmp($place["image"], "") != 0) {
             for (let i = 0; i < result.length; i++) {
                 let el = $('#random-nearest-places').find('.place_image').eq(i)
                 if (result[i].image !== "") {
-                    el.css("background-image", "url(" + BASE_URL + "data/image.php?file=" + result[i].image + 
+                    el.css("background-image", "url(" + BASE_URL + "data/image.php?mode=release&file=" + result[i].image + 
                     '&w=' + el.width() + '&h=' + el.height() + ")");
                 }
                 let name = result[i].name;
