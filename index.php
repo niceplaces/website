@@ -383,7 +383,7 @@ require_once "utils.php";
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <iframe frameborder="0" height="600px" width="100%" src="<?php echo $BASE_URL ?>map.php">
+                <iframe frameborder="0" height="600px" width="100%" src="<?php echo $BASE_URL ?>map.php?mode=release">
                 </iframe>
             </div>
         </div>

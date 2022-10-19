@@ -66,6 +66,7 @@ require_once 'data/protected/config.php';
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
+    <div id="db-mode" style="display: none"><?php echo $_GET['mode'] ?></div>
 <div class="container-fluid">
     <div id="map"></div>
 </div>
@@ -141,18 +142,17 @@ require_once 'data/protected/config.php';
         });
     }
 
-    let url = base_url + "data/query.php?version=v3&mode=release&p1=getnearestplaces&p2=" + 43 + "&p3=" + 11 + "&p4=10000";
-    console.log(url);
+    let mode = document.getElementById('db-mode').textContent
+    let url = base_url + "data/query.php?version=v3&mode=" + mode + "&p1=getnearestplaces&p2=" + 43 + "&p3=" + 11 + "&p4=10000";
     $.ajax({
         url: url,
         type: "GET",
         contentType: "application/json",
         success: function (result) {
-            console.log(result);
             let markers = [];
             for (let i = 0; i < result.length; i++) {
                 let icon = {
-                    url: base_url + "data/image.php?file=" + result[i].image + "&w=200&h=200",
+                    url: base_url + "data/image.php?mode=" + mode + "&file=" + result[i].image + "&w=200&h=200",
                     scaledSize: new google.maps.Size(50, 50), // scaled size
                     origin: new google.maps.Point(0, 0), // origin
                     anchor: new google.maps.Point(25, 25) // anchor
@@ -168,10 +168,10 @@ require_once 'data/protected/config.php';
                 });
                 markers.push(marker);
                 let image = '<div style="display: inline" class="col-md-12"> ' +
-                    '<div style="display: inline-block; width: 150px; text-align: center" class="row">' +
-                    '<div style="display: inline; position: relative" class="col-sm-12 col-md-6"> ' +
-                    '<img src="' + base_url + 'data/image_resizer.php?name=' + result[i].image + '&w=200&h=200">' +
-                    '</div>' +
+                    '<div style="display: inline-block; width: 100px; border-radius: 50px; text-align: center" class="row">' +
+                    '<div style="display: inline; position: relative; ' +
+                    'background-image: url(" ' + base_url + 'data/image.php?mode=' + mode + '&name=' + result[i].image + '&w=100&h=100")"' +
+                    'class="col-sm-12 col-md-6"></div>' +
                     '<div style="display: inline; position: absolute; left: 0; top: 70px" class="col-sm-12 col-md-6"> ' +
                     result[i].name + "<br/>" + result[i].distance_km +
                     '</div></div></div>';
@@ -180,10 +180,8 @@ require_once 'data/protected/config.php';
             let markerCluster = new MarkerClusterer(luoghi, markers,
                 {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
             markerCluster.setGridSize(30);
-            console.log(markerCluster.getGridSize());
         },
         error: function (error) {
-            console.log(url);
             console.log(error);
         }
     });
