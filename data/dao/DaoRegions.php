@@ -40,15 +40,35 @@ class DaoRegions {
     }
 
     function getAll(){
-        $sql = "SELECT regions.id AS id, regions.name AS name, regions.name_en AS name_en, 
+        $sql1 = "SELECT regions.id AS id, regions.name AS name, regions.name_en AS name_en, 
                 regions.id_string AS id_string, regions.id_string_en AS id_string_en, COUNT(places.id) AS count 
                 FROM ".$this->table_regions." AS regions
                 INNER JOIN ".$this->table_areas." AS areas ON regions.id = areas.id_region
                 LEFT JOIN ".$this->table_places." AS places ON areas.id = places.id_area 
+                WHERE regions.id <= 20
                 GROUP BY regions.id ORDER BY count DESC";
-        $result = $this->connection->query($sql);
+        $sql2 = "SELECT regions.id AS id, regions.name AS name, regions.name_en AS name_en, 
+                regions.id_string AS id_string, regions.id_string_en AS id_string_en, COUNT(places.id) AS count 
+                FROM ".$this->table_regions." AS regions
+                INNER JOIN ".$this->table_areas." AS areas ON regions.id = areas.id_region
+                LEFT JOIN ".$this->table_places." AS places ON areas.id = places.id_area 
+                WHERE regions.id > 20
+                GROUP BY regions.id ORDER BY count DESC";
+        $result1 = $this->connection->query($sql1);
+        $result2 = $this->connection->query($sql2);
         $array = array();
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result1->fetch_assoc()) {
+            $object = array(
+                'id' => $row["id"],
+                'id_string' => $row["id_string"],
+                'id_string_en' => $row["id_string_en"],
+                'name' => $row["name"],
+                'name_en' => $row["name_en"],
+                'count' => $row["count"]
+            );
+            array_push($array, $object);
+        }
+        while ($row = $result2->fetch_assoc()) {
             $object = array(
                 'id' => $row["id"],
                 'id_string' => $row["id_string"],
