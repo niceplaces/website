@@ -62,6 +62,8 @@ if ($lang == "en") {
 			case "3":
 				echo "Cammino d'Etruria";
 				break;
+			case "4":
+				echo "Pro Loco Murlo";
 			default:
 				break;
 		}
@@ -74,6 +76,26 @@ if ($lang == "en") {
 	<img id="logo-np" src="../assets/logo_website.png" style="display: none">
 	<script>
 		window.onload = function() {
+
+			let color_nice_places = "#188a8d"
+			let color_pro_loco_sovicille = "#ff6f00"
+			let color_cammino_detruria = "#F8D4AD"
+			let color_pro_loco_murlo = "#048ecc"
+
+			function createGradient(alpha=false){
+				let gradient = ctx.createLinearGradient(0, 0, width, width)
+				if (author_id === "2"){
+					gradient.addColorStop(0, color_pro_loco_sovicille + (alpha ? "cc" : ""))
+				} else if (author_id === "3"){
+					gradient.addColorStop(0, color_cammino_detruria + (alpha ? "cc" : ""))
+				} else if (author_id === "4"){
+					gradient.addColorStop(0, color_pro_loco_murlo + (alpha ? "cc" : ""))
+				} else {
+					gradient.addColorStop(0, color_nice_places + (alpha ? "cc" : ""))
+				}
+				gradient.addColorStop(1, "#60dd8e")
+				return gradient
+			}
 
 			let c = document.getElementById("canvas")
 			let ctx = c.getContext("2d")
@@ -157,14 +179,7 @@ if ($lang == "en") {
 				ctx.rect(width - margin, 0, width - margin, width)
 				// Bottom border
 				ctx.rect(0, width - margin, width, width)
-				let gradient = ctx.createLinearGradient(0, 0, width, width);
-				if (author_id === "2"){
-					gradient.addColorStop(0, "#ff6f00")
-				} else {
-					gradient.addColorStop(0, "#188a8d")
-				}
-				gradient.addColorStop(1, "#60dd8e")
-				ctx.fillStyle = gradient
+				ctx.fillStyle = createGradient()
 				ctx.fill()
 
 				ctx.beginPath()
@@ -253,14 +268,7 @@ if ($lang == "en") {
 				let center_y = 130
 
 				// Text block
-				let gradient = ctx.createLinearGradient(0, 0, width, width);
-				if (author_id === "2"){
-					gradient.addColorStop(0, "#ff6f00cc")
-				} else {
-					gradient.addColorStop(0, "#188a8dcc")
-				}
-				gradient.addColorStop(1, "#60dd8ecc")
-				ctx.fillStyle = gradient
+				ctx.fillStyle = createGradient(true)
 				ctx.fillRect(0, 0, width, width);
 
 				ctx.beginPath()
@@ -273,13 +281,8 @@ if ($lang == "en") {
 				// Bottom border
 				ctx.rect(0, width - margin, width, width)
 				gradient = ctx.createLinearGradient(0, 0, width, width);
-				if (author_id === "2"){
-					gradient.addColorStop(0, "#ff6f00")
-				} else {
-					gradient.addColorStop(0, "#188a8d")
-				}
-				gradient.addColorStop(1, "#60dd8e")
-				ctx.fillStyle = gradient
+
+				ctx.fillStyle = createGradient()
 				ctx.fill()
 
 				ctx.beginPath()
