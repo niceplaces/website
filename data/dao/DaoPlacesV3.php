@@ -750,81 +750,99 @@ class DaoPlacesV3
     function printChangelog(){
         $domain = "https://www.niceplaces.it/";
         // Nuovi luoghi IT
-        $sql = "SELECT p.name AS place, p.id_string AS p_id, a.name AS area, a.id_string AS a_id
+        $sql = "SELECT p.name AS place, p.id_string AS p_id, a.name AS area, r.name AS region, a.id_string AS a_id
         FROM places_v3_debug AS p
         INNER JOIN areas_v3_debug AS a ON p.id_area = a.id
+        INNER JOIN regions_v3_debug AS r ON a.id_region = r.id
         WHERE p.id NOT IN ( SELECT id FROM places_v3_release )
-        ORDER BY p.name";
+        ORDER BY place";
         $result = $this->connection->query($sql);
-        echo "<h3>Nuovi luoghi (".$result->num_rows.")</h3>";
+        echo "<h3>Nuovi luoghi (".$result->num_rows.")</h3><ol>";
         while ($row = $result->fetch_assoc()) {
-            echo '<a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
-                $domain.$row["a_id"].'/">'.$row["area"].'</a>)<br/>';
+            echo '<li><a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
+                $domain.$row["a_id"].'/">'.$row["area"].', '.$row["region"].'</a>)</li>';
         }
+        echo "</ol>";
         // Nuove descrizioni IT
-        $sql = "SELECT p.name AS place, p.id_string AS p_id, a.name AS area, a.id_string AS a_id
+        $sql = "SELECT p.name AS place, p.id_string AS p_id, a.name AS area, r.name AS region, a.id_string AS a_id
         FROM places_v3_debug AS p
         INNER JOIN areas_v3_debug AS a ON p.id_area = a.id
+        INNER JOIN regions_v3_debug AS r ON a.id_region = r.id
         INNER JOIN places_v3_release AS pr ON p.id = pr.id
         WHERE p.description <> '' AND pr.description = ''
-        ORDER BY p.name";
+        ORDER BY place";
         $result = $this->connection->query($sql);
-        echo "<h3>Nuove descrizioni (".$result->num_rows.")</h3>";
+        echo "<h3>Nuove descrizioni (".$result->num_rows.")</h3><ol>";
         while ($row = $result->fetch_assoc()) {
-            echo '<a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
-                $domain.$row["a_id"].'/">'.$row["area"].'</a>)<br/>';
+            echo '<li><a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
+                $domain.$row["a_id"].'/">'.$row["area"].', '.$row["region"].'</a>)</li>';
         }
+        echo "</ol>";
         // Descrizioni aggiornate IT
-        $sql = "SELECT p.name AS place, p.id_string AS p_id, a.name AS area, a.id_string AS a_id
+        $sql = "SELECT p.name AS place, p.id_string AS p_id, a.name AS area, r.name AS region, a.id_string AS a_id
         FROM places_v3_debug AS p
         INNER JOIN areas_v3_debug AS a ON p.id_area = a.id
+        INNER JOIN regions_v3_debug AS r ON a.id_region = r.id
         INNER JOIN places_v3_release AS pr ON p.id = pr.id
         WHERE p.description <> pr.description AND pr.description <> ''
-        ORDER BY p.name";
+        ORDER BY place";
         $result = $this->connection->query($sql);
-        echo "<h3>Descrizioni aggiornate (".$result->num_rows.")</h3>";
+        echo "<h3>Descrizioni aggiornate (".$result->num_rows.")</h3><ol>";
         while ($row = $result->fetch_assoc()) {
-            echo '<a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
-                $domain.$row["a_id"].'/">'.$row["area"].'</a>)<br/>';
+            echo '<li><a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
+                $domain.$row["a_id"].'/">'.$row["area"].', '.$row["region"].'</a>)</li>';
         }
+        echo "</ol>";
         // Nuovi luoghi EN
-        $sql = "SELECT p.name_en AS place, p.id_string_en AS p_id, a.name_en AS area, a.id_string_en AS a_id
+        $sql = "SELECT IF(LENGTH(p.name_en)>0, p.name_en, p.name) AS place, p.id_string_en AS p_id, 
+        IF(LENGTH(a.name_en)>0, a.name_en, a.name) AS area, 
+        IF(LENGTH(r.name_en)>0, r.name_en, r.name) AS region, a.id_string_en AS a_id
         FROM places_v3_debug AS p
         INNER JOIN areas_v3_debug AS a ON p.id_area = a.id
+        INNER JOIN regions_v3_debug AS r ON a.id_region = r.id
         WHERE p.id NOT IN ( SELECT id FROM places_v3_release )
-        ORDER BY p.name_en";
+        ORDER BY place";
         $result = $this->connection->query($sql);
-        echo "<h3>New places (".$result->num_rows.")</h3>";
+        echo "<h3>New places (".$result->num_rows.")</h3><ol>";
         while ($row = $result->fetch_assoc()) {
-            echo '<a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
-                $domain.$row["a_id"].'/">'.$row["area"].'</a>)<br/>';
+            echo '<li><a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
+                $domain.$row["a_id"].'/">'.$row["area"].', '.$row["region"].'</a>)</li>';
         }
+        echo "</ol>";
         // Nuove descrizioni EN
-        $sql = "SELECT p.name_en AS place, p.id_string_en AS p_id, a.name_en AS area, a.id_string_en AS a_id
+        $sql = "SELECT IF(LENGTH(p.name_en)>0, p.name_en, p.name) AS place, p.id_string_en AS p_id, 
+        IF(LENGTH(a.name_en)>0, a.name_en, a.name) AS area, 
+        IF(LENGTH(r.name_en)>0, r.name_en, r.name) AS region, a.id_string_en AS a_id
         FROM places_v3_debug AS p
         INNER JOIN areas_v3_debug AS a ON p.id_area = a.id
+        INNER JOIN regions_v3_debug AS r ON a.id_region = r.id
         INNER JOIN places_v3_release AS pr ON p.id = pr.id
         WHERE p.description_en <> '' AND pr.description_en = ''
-        ORDER BY p.name_en";
+        ORDER BY place";
         $result = $this->connection->query($sql);
-        echo "<h3>New descriptions (".$result->num_rows.")</h3>";
+        echo "<h3>New descriptions (".$result->num_rows.")</h3><ol>";
         while ($row = $result->fetch_assoc()) {
-            echo '<a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
-                $domain.$row["a_id"].'/">'.$row["area"].'</a>)<br/>';
+            echo '<li><a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
+                $domain.$row["a_id"].'/">'.$row["area"].', '.$row["region"].'</a>)</li>';
         }
+        echo "</ol>";
         // Descrizioni aggiornate EN
-        $sql = "SELECT p.name_en AS place, p.id_string_en AS p_id, a.name_en AS area, a.id_string_en AS a_id
+        $sql = "SELECT IF(LENGTH(p.name_en)>0, p.name_en, p.name) AS place, p.id_string_en AS p_id, 
+        IF(LENGTH(a.name_en)>0, a.name_en, a.name) AS area, 
+        IF(LENGTH(r.name_en)>0, r.name_en, r.name) AS region, a.id_string_en AS a_id
         FROM places_v3_debug AS p
         INNER JOIN areas_v3_debug AS a ON p.id_area = a.id
+        INNER JOIN regions_v3_debug AS r ON a.id_region = r.id
         INNER JOIN places_v3_release AS pr ON p.id = pr.id
         WHERE p.description_en <> pr.description_en AND pr.description_en <> ''
-        ORDER BY p.name_en";
+        ORDER BY place";
         $result = $this->connection->query($sql);
-        echo "<h3>Updated descriptions (".$result->num_rows.")</h3>";
+        echo "<h3>Updated descriptions (".$result->num_rows.")</h3><ol>";
         while ($row = $result->fetch_assoc()) {
-            echo '<a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
-                $domain.$row["a_id"].'/">'.$row["area"].'</a>)<br/>';
+            echo '<li><a href="'.$domain.$row["a_id"].'/'.$row["p_id"].'">'.$row["place"].'</a> (<a href="'.
+                $domain.$row["a_id"].'/">'.$row["area"].', '.$row["region"].'</a>)</li>';
         }
+        echo "</ol>";
     }
 
 }
