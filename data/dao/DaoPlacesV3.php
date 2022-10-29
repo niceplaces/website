@@ -38,7 +38,7 @@ class DaoPlacesV3
     {
         $sql = "UPDATE " . $this->table_places . " AS places SET 
                 name_en = '" . $data["name_en"] . "', description = '" . $data["description"] . "', description_en = '" . $data["description_en"] . "', desc_sources = '" . $data["desc_sources"] . "', 
-                latitude = '" . $data["latitude"] . "', longitude= '" . $data["longitude"] . "', wiki_url = '" . $data["wiki_url"] . "', 
+                latitude = '" . $data["latitude"] . "', longitude= '" . $data["longitude"] . "', wiki_url = '" . $data["wiki_url"] . "', wiki_url_en = '" . $data["wiki_url_en"] . "', 
                 facebook = '" . $data["facebook"] . "', instagram = '" . $data["instagram"] . "', image = '" . $data["image"] . "',
                 img_credits = '" . $data["img_credits"] . "', last_update = CURRENT_TIMESTAMP
                 WHERE places.id = " . $id;
