@@ -27,6 +27,9 @@ if (isset($_GET['p3'])){
 if (isset($_GET['p4'])){
     $getp4 = $_GET['p4'];
 }
+if (isset($_GET['p5'])){
+    $getp4 = $_GET['p5'];
+}
 
 $daoPlaces = new DaoPlaces($conn, $version, $mode);
 if (strcmp($version, "v3") == 0){
@@ -56,6 +59,12 @@ switch ($getp1){
     case 'getplacesbyareaidstring':
         $result = $daoPlaces->getByAreaIdString($getp2);
         break;
+    case 'updateregion':
+        $result = $daoRegions->update($getp2, $post);
+        break;
+    case 'updatearea':
+        $result = $daoAreas->update($getp2, $post);
+        break;
     case 'updateplace':
         $result = $daoPlaces->update($getp2, $post);
         break;
@@ -77,8 +86,11 @@ switch ($getp1){
     case 'getlastupdated':
         $result = $daoPlaces->getLastUpdated();
         break;
+    case 'insertregion':
+        $result = $daoRegions->insert($getp2);
+        break;
     case 'insertarea':
-        $result = $daoAreas->insert($getp2);
+        $result = $daoAreas->insert($getp2, $getp3);
         break;
     case 'insertplace':
         $result = $daoPlaces->insert($getp2, $getp3);

@@ -21,6 +21,16 @@ class DaoRegions {
         return $result;
     }
 
+    function update($id, $data){
+        $sql = "UPDATE ".$this->table_regions." SET 
+            id_string = '" . $data["id_string"] . "', 
+            id_string_en = '" . $data["id_string_en"] . "', 
+            name_en = '" . $data["name_en"] . "'
+            WHERE id = " . $id;
+        $result = $this->connection->query($sql);
+        return $result;
+    }
+
     function getOne($id_string){
         $sql = "SELECT *
                 FROM ".$this->table_regions."

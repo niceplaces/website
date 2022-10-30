@@ -3,24 +3,84 @@ $(document).ready(function () {
     const base_url = "https://www.niceplaces.it/";
     //const base_url = "http://localhost/niceplaces/";
 
-    $("#select_place").hide();
+    let loadedRegions = []
+    let selectedRegion = []
+    let loadedAreas = []
+    let selectedArea = []
+    let loadedPlaces = []
+    let loadedPlaceDetails = []
+    let editedPlaceDetails = []
+
+    $(".tab-content").hide()
+    $("#pills-places").show()
+
+    $('#pills-tab a').on('click', function (e) {
+        e.preventDefault()
+        href = $(this).attr('data-href')
+        console.log(href)
+        $(".tab-content").hide()
+        $("#" + href).show()
+    })
+
+    $("#p_select_area").hide();
+    $("#p_select_place").hide();
     $("#place_panel").hide();
+    $("#place_panel_2").hide();
     $("#events_panel").hide();
     $(".description_en").hide();
 
-    loadAreasList();
+    loadRegionsList();
 
-    function loadAreasList() {
+    function loadRegionsList() {
         $.ajax({
-            url: base_url + "data/v3/debug/areas",
+            url: base_url + "data/v3/debug/regions",
             type: "GET",
             contentType: "application/json",
             success: function (result) {
-                console.log(result);
-                $("#area").html('<option selected>Seleziona...</option>');
-                $("#places_area_to_add").html('<option selected>Seleziona...</option>');
+                console.log(result)
+                loadedRegions = result
+                let str = '<option selected>Seleziona...</option>'
+                $("#r_region").html(str)
+                $("#a_region").html(str)
+                $("#p_region").html(str)
+                $("#areas_region_to_add").html(str)
+                result.sort((a, b) => {
+                    if (a.name < b.name)
+                        return -1
+                    else if (a.name > b.name)
+                        return 1
+                    return 0
+                })
                 for (let i = 0; i < result.length; i++) {
-                    $("#area").append("<option value=\"" + result[i].id + "\">" + result[i].name + " (" + result[i].count + ")</option>");
+                    let str = "<option value=\"" + result[i].id + "\">" + result[i].name + " (" + result[i].count + ")</option>"
+                    $("#r_region").append(str)
+                    $("#a_region").append(str)
+                    $("#p_region").append(str)
+                    $("#areas_region_to_add").append("<option value=\"" + result[i].id + "\">" + result[i].name + "</option>");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function loadAreasList(id_region) {
+        $.ajax({
+            url: base_url + "data/v3/debug/regions/" + id_region,
+            type: "GET",
+            contentType: "application/json",
+            success: function (result) {
+                console.log(result)
+                loadedAreas = result
+                let str = '<option selected>Seleziona...</option>'
+                $("#a_area").html(str)
+                $("#p_area").html(str)
+                $("#places_area_to_add").html(str);
+                for (let i = 0; i < result.length; i++) {
+                    let str = "<option value=\"" + result[i].id + "\">" + result[i].name + " (" + result[i].count + ")</option>"
+                    $("#a_area").append(str)
+                    $("#p_area").append(str)
                     $("#places_area_to_add").append("<option value=\"" + result[i].id + "\">" + result[i].name + "</option>");
                 }
             },
@@ -36,13 +96,15 @@ $(document).ready(function () {
             type: "GET",
             contentType: "application/json",
             success: function (result) {
-                $("#place").html('<option selected>Seleziona...</option>');
+                console.log(result)
+                loadedPlaces = result
+                $("#p_place").html('<option selected>Seleziona...</option>')
                 for (let i = 0; i < result.length; i++) {
                     let name = result[i].name;
                     if (result[i].has_image){
                         name += '<img src="../../assets/icons/picture.png">';
                     }
-                    $("#place").append("<option value=\"" + result[i].id + "\">" + name + "</option>");
+                    $("#p_place").append("<option value=\"" + result[i].id + "\">" + name + "</option>");
                 }
             },
             error: function (error) {
@@ -51,8 +113,21 @@ $(document).ready(function () {
         });
     }
 
-    let loadedJson = [];
-    let editedJson = [];
+    function loadArea(id){
+        $.ajax({
+            url: base_url + "data/v3/debug/areas/" + id,
+            type: "GET",
+            contentType: "application/json",
+            success: function (result) {
+                console.log(result)
+                $('#a_id_string').val(result.id_string);
+                $('#a_id_string_en').val(result.id_string_en);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 
     function loadPlace(id) {
         $.ajax({
@@ -61,14 +136,16 @@ $(document).ready(function () {
             contentType: "application/json",
             success: function (result) {
                 console.log(result)
-                loadedJson = result;
-                editedJson = $.extend(true, {}, result);
+                loadedPlaceDetails = result;
+                editedPlaceDetails = $.extend(true, {}, result);
                 let position = {lat: 0, lng: 0};
                 if (result.latitude !== "0" && result.longitude !== "0"){
                     position = {lat: parseFloat(result.latitude), lng: parseFloat(result.longitude)};
                 }
                 placeMarker(position, googleMap);
                 googleMap.setCenter(new google.maps.LatLng(position.lat, position.lng));
+                $('#p_id_string').val(result.id_string);
+                $('#p_id_string_en').val(result.id_string_en);
                 $('#english_name').val(result.name_en);
                 $('#photo').val(result.image);
                 $('#photo_credits').val(result.img_credits);
@@ -99,7 +176,7 @@ $(document).ready(function () {
                 div_events.find(".btn_remove_event").on('click', function () {
                     $(this).parents().eq(1).remove();
                 });
-                loadPhotos();
+                //loadPhotos();
             },
             error: function (error) {
                 console.log(error);
@@ -107,47 +184,122 @@ $(document).ready(function () {
         });
     }
 
-    $("#area").change(function () {
-        const id_area = $("#area").val();
+    $("#r_region").change(function () {
+        const id_region = $(this).val()
+        selectedRegion = $.extend(true, {}, loadedRegions.filter((x) => x.id == id_region)[0]);
+        $('#r_id_string').val(selectedRegion.id_string)
+        $('#r_id_string_en').val(selectedRegion.id_string_en)
+    });
+
+    $("#a_region").change(function () {
+        const id_region = $(this).val()
+        loadAreasList(id_region)
+        $("#a_select_area").show()
+    });
+
+    $("#p_region").change(function () {
+        const id_region = $(this).val()
+        loadAreasList(id_region)
+        $("#p_select_area").show()
+    });
+
+    $("#a_area").change(function () {
+        const id_area = $(this).val();
+        selectedArea = $.extend(true, {}, loadedAreas.filter((x) => x.id == id_area)[0]);
+        $('#a_id_string').val(selectedArea.id_string)
+        $('#a_id_string_en').val(selectedArea.id_string_en)
+    });
+
+    $("#p_area").change(function () {
+        const id_area = $(this).val();
         loadPlacesList(id_area);
-        $("#select_place").show();
+        $("#p_select_place").show();
         clearFields();
     });
 
-    $("#place").change(function () {
-        const id = $("#place").val();
+    $("#p_place").change(function () {
+        const id = $(this).val();
         loadPlace(id);
         $("#place_panel").show();
+        $("#place_panel_2").show();
         $("#events_panel").show();
     });
 
-    $("#btn_save").click(function () {
-        const id = $("#place").val();
+    $("#btn_r_save").click(function () {
+        const modal = $("#modal_save")
+        modal.modal("show")
+        selectedRegion.id_string = $("#r_id_string").val().replace(/'/g, "\\'")
+        selectedRegion.id_string_en = $("#r_id_string_en").val().replace(/'/g, "\\'")
+        $.ajax({
+            url: base_url + "data/query.php?version=v3&mode=debug&p1=updateregion&p2=" + selectedRegion.id,
+            type: "POST",
+            data: JSON.stringify(selectedRegion),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                modalSaveReturn(true)
+            },
+            error: function (error) {
+                console.log(error);
+                modalSaveReturn(false)
+            }
+        });
+    })
+
+    $("#btn_a_save").click(function () {
+        const modal = $("#modal_save")
+        modal.modal("show")
+        selectedArea.id_string = $("#a_id_string").val().replace(/'/g, "\\'");;
+        selectedArea.id_string_en = $("#a_id_string_en").val().replace(/'/g, "\\'");;
+        $.ajax({
+            url: base_url + "data/query.php?version=v3&mode=debug&p1=updatearea&p2=" + selectedArea.id,
+            type: "POST",
+            data: JSON.stringify(selectedArea),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                modalSaveReturn(true)
+            },
+            error: function (error) {
+                console.log(error);
+                modalSaveReturn(false)
+            }
+        });
+    })
+
+    $("#btn_p_save").click(function () {
+        const modal = $("#modal_save")
+        modal.modal("show")
+        const id = loadedPlaceDetails.id;
         let lat = $('#lat').html();
         if (lat === ""){
-            editedJson.latitude = "0";
+            editedPlaceDetails.latitude = "0";
         } else {
-            editedJson.latitude = lat;
+            editedPlaceDetails.latitude = lat;
         }
         let lon = $('#lon').html();
         if (lon === ""){
-            editedJson.longitude = "0";
+            editedPlaceDetails.longitude = "0";
         } else {
-            editedJson.longitude = lon;
+            editedPlaceDetails.longitude = lon;
         }
-        editedJson.name_en = $("#english_name").val().replace(/'/g, "\\'");;
-        editedJson.description = $("#description").val().replace(/'/g, "\\'");
-        editedJson.description_en = $("#description_en").val().replace(/'/g, "\\'");
-        editedJson.desc_sources = $("#desc_sources").val();
-        editedJson.wiki_url = $("#wiki_url").val();
-        editedJson.wiki_url_en = $("#wiki_url_en").val();
-        editedJson.facebook = $("#facebook").val();
-        editedJson.instagram = $("#instagram").val();
-        editedJson.image = $("#photo").val();
-        editedJson.img_credits = $("#photo_credits").val();
-        editedJson.events = [];
+        editedPlaceDetails.id_string = $("#p_id_string").val().replace(/'/g, "\\'");;
+        editedPlaceDetails.id_string_en = $("#p_id_string_en").val().replace(/'/g, "\\'");;
+        editedPlaceDetails.name_en = $("#english_name").val().replace(/'/g, "\\'");;
+        editedPlaceDetails.description = $("#description").val().replace(/'/g, "\\'");
+        editedPlaceDetails.description_en = $("#description_en").val().replace(/'/g, "\\'");
+        editedPlaceDetails.desc_sources = $("#desc_sources").val();
+        editedPlaceDetails.wiki_url = $("#wiki_url").val();
+        editedPlaceDetails.wiki_url_en = $("#wiki_url_en").val();
+        editedPlaceDetails.facebook = $("#facebook").val();
+        editedPlaceDetails.instagram = $("#instagram").val();
+        editedPlaceDetails.image = $("#photo").val();
+        editedPlaceDetails.img_credits = $("#photo_credits").val();
+        editedPlaceDetails.events = [];
         $(".row-event").each(function (i, val) {
-            editedJson.events.push({
+            editedPlaceDetails.events.push({
                 "id": $(this).find(".event-id").text(),
                 "date": $(this).find(".event-date").val(),
                 "description": $(this).find(".event-desc").val().replace(/'/g, "\\'")
@@ -157,7 +309,7 @@ $(document).ready(function () {
         $.ajax({
             url: base_url + "data/v3/debug/places/" + id + "/update",
             type: "POST",
-            data: JSON.stringify(editedJson),
+            data: JSON.stringify(editedPlaceDetails),
             contentType: "application/json",
             dataType: "json",
             success: function (result) {
@@ -172,7 +324,7 @@ $(document).ready(function () {
                         success: function (result) {
                             console.log(result);
                             if (result){
-                                alert("Salvato.");
+                                modalSaveReturn(true)
                                 insertChangeLog();
                                 //location.reload();
                             } else {
@@ -190,49 +342,49 @@ $(document).ready(function () {
             },
             error: function (error) {
                 console.log(error);
-                alert("Si è verificato un errore!");
+                modalSaveReturn(false)
             }
         });
     });
 
     function computeDiffs() {
-        console.log(loadedJson, editedJson);
-        console.log(JSON.stringify(loadedJson).localeCompare(JSON.stringify(editedJson)));
+        console.log(loadedPlaceDetails, editedPlaceDetails);
+        console.log(JSON.stringify(loadedPlaceDetails).localeCompare(JSON.stringify(editedPlaceDetails)));
         let events_actions = {
             "insert": [],
             "update": [],
             "delete": []
         };
-        for (let i = 0; i < editedJson.events.length; i++) {
-            if (editedJson.events[i].date.localeCompare("") !== 0 && editedJson.events[i].description.localeCompare("") !== 0){
-                if (editedJson.events[i].id.localeCompare("") === 0) {
-                    events_actions.insert.push(editedJson.events[i]);
+        for (let i = 0; i < editedPlaceDetails.events.length; i++) {
+            if (editedPlaceDetails.events[i].date.localeCompare("") !== 0 && editedPlaceDetails.events[i].description.localeCompare("") !== 0){
+                if (editedPlaceDetails.events[i].id.localeCompare("") === 0) {
+                    events_actions.insert.push(editedPlaceDetails.events[i]);
                 } else {
                     let j = 0;
-                    while (j < loadedJson.events.length) {
-                        if (loadedJson.events[j].id !== editedJson.events[i].id) {
+                    while (j < loadedPlaceDetails.events.length) {
+                        if (loadedPlaceDetails.events[j].id !== editedPlaceDetails.events[i].id) {
                             j++;
                         } else {
                             break;
                         }
                     }
-                    if (JSON.stringify(loadedJson.events[j]).localeCompare(JSON.stringify(editedJson.events[i])) !== 0) {
-                        events_actions.update.push(editedJson.events[i]);
+                    if (JSON.stringify(loadedPlaceDetails.events[j]).localeCompare(JSON.stringify(editedPlaceDetails.events[i])) !== 0) {
+                        events_actions.update.push(editedPlaceDetails.events[i]);
                     }
                 }
             }
         }
-        for (let i = 0; i < loadedJson.events.length; i++) {
+        for (let i = 0; i < loadedPlaceDetails.events.length; i++) {
             let j = 0;
-            while (j < editedJson.events.length) {
-                if (loadedJson.events[i].id !== editedJson.events[j].id) {
+            while (j < editedPlaceDetails.events.length) {
+                if (loadedPlaceDetails.events[i].id !== editedPlaceDetails.events[j].id) {
                     j++;
                 } else {
                     break;
                 }
             }
-            if (j === editedJson.events.length) {
-                events_actions.delete.push(loadedJson.events[i]);
+            if (j === editedPlaceDetails.events.length) {
+                events_actions.delete.push(loadedPlaceDetails.events[i]);
             }
         }
         console.log(events_actions);
@@ -258,9 +410,23 @@ $(document).ready(function () {
         $(this).parent().find(".char_counter span").html($(this).val().length);
     });
 
-    $("#modal_areas_save").click(function () {
-        const modal = $("#modal_areas");
-        const name = $("#area_to_add").val().replace(/'/g, "\\'");
+    $('#modal_save').on('show.bs.modal', function () {
+        $(this).find('.alert').hide()
+        $(this).find('.alert-info').show()
+    })
+
+    function modalSaveReturn(ok){
+        $('#modal_save').find('.alert').hide()
+        if (ok){
+            $('#modal_save').find('.alert-success').show()
+        } else {
+            $('#modal_save').find('.alert-danger').show()
+        }
+    }
+
+    $("#modal_regions_save").click(function () {
+        const modal = $("#modal_regions");
+        const name = $("#regions_to_add").val().replace(/'/g, "\\'");
         $.ajax({
             url: base_url + "data/query.php?version=v3&mode=debug&p1=insertarea&p2=" + name,
             type: "GET",
@@ -269,7 +435,32 @@ $(document).ready(function () {
                 console.log(result);
                 if (result){
                     alert("Salvato.");
-                    loadAreasList();
+                    loadRegionsList();
+                    modal.modal("hide");
+                } else {
+                    alert("Si è verificato un errore!");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                alert("Si è verificato un errore!");
+            }
+        });
+    });
+
+    $("#modal_areas_save").click(function () {
+        const modal = $("#modal_areas");
+        const id = $("#areas_region_to_add").val().replace(/'/g, "\\'");
+        const name = $("#area_to_add").val().replace(/'/g, "\\'");
+        $.ajax({
+            url: base_url + "data/query.php?version=v3&mode=debug&p1=insertarea&p2=" + id + "&p3=" + name,
+            type: "GET",
+            contentType: "application/json",
+            success: function (result) {
+                console.log(result);
+                if (result){
+                    alert("Salvato.");
+                    loadAreasList(id);
                     modal.modal("hide");
                 } else {
                     alert("Si è verificato un errore!");
@@ -297,6 +488,7 @@ $(document).ready(function () {
                     $("#area").val(id);
                     loadPlacesList(id);
                     $("#place_panel").show();
+                    $("#place_panel_2").show();
                     modal.modal("hide");
                 } else {
                     alert("Si è verificato un errore!");
@@ -473,7 +665,7 @@ $(document).ready(function () {
                     $('#modal_upload_image').modal("hide");
                     $('#photo').val($("#form_upload_image #image_path").val());
                     $('#selected-photo').css("background-image", "url(" + path + ")");
-                    loadPhotos();
+                    //loadPhotos();
                 } else {
                     alert("Si è verificato un errore!");
                 }

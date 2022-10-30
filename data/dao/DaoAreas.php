@@ -14,9 +14,19 @@ class DaoAreas {
         $this->table_places = "places_".$version."_".$mode;
     }
 
-    function insert($name){
+    function insert($id_region, $name){
         $sql = "INSERT INTO ".$this->table_areas." (id, name, name_en, id_region, image) 
-                VALUES (NULL, '".$name."', '', 0, '');";
+                VALUES (NULL, '', '', '".$name."', '', '" . $id_region . "', '');";
+        $result = $this->connection->query($sql);
+        return $result;
+    }
+
+    function update($id, $data){
+        $sql = "UPDATE ".$this->table_areas." SET 
+            id_string = '" . $data["id_string"] . "', 
+            id_string_en = '" . $data["id_string_en"] . "', 
+            name_en = '" . $data["name_en"] . "'
+            WHERE id = " . $id;
         $result = $this->connection->query($sql);
         return $result;
     }
@@ -62,7 +72,7 @@ class DaoAreas {
 
     function getByRegion($id_region)
     {
-        $sql = "SELECT areas.id AS id, areas.name AS name, areas.name_en AS name_en, areas.image as image, COUNT(places.id) AS count 
+        $sql = "SELECT areas.id AS id, areas.id_string AS id_string, areas.id_string_en AS id_string_en, areas.name AS name, areas.name_en AS name_en, areas.image as image, COUNT(places.id) AS count 
                 FROM ".$this->table_areas." AS areas LEFT JOIN ".$this->table_places." AS places ON areas.id = places.id_area
                 WHERE areas.id_region = " . $id_region . "
                 GROUP BY areas.id ORDER BY count DESC";
@@ -71,6 +81,8 @@ class DaoAreas {
         while ($row = $result->fetch_assoc()) {
             $object = array(
                 'id' => $row["id"],
+                'id_string' => $row["id_string"],
+                'id_string_en' => $row["id_string_en"],
                 'name' => $row["name"],
                 'name_en' => $row["name_en"],
                 'image' => $row["image"],
