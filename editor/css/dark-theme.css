@@ -1,0 +1,11 @@
+@media (prefers-color-scheme: dark) {
+  body, .form-control {
+    background: #121212;
+    color: white;
+  }
+
+  .bg-light {
+    background: #141414;
+    color: white;
+  }
+}

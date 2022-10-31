@@ -12,8 +12,9 @@ require_once '../data/protected/config.php';
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
-    <link rel="stylesheet" href="home.css" />
-    <link rel="stylesheet" href="map.css" />
+    <link rel="stylesheet" href="css/dark-theme.css" />
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/map.css" />
     <title>Nice Places Editor</title>
 </head>
 
@@ -604,14 +605,149 @@ require_once '../data/protected/config.php';
         let markers = [];
 
         function initAutocomplete() {
-            googleMap = new google.maps.Map(document.getElementById('map'), {
-                center: {
-                    lat: -33.8688,
-                    lng: 151.2195
-                },
-                zoom: 13,
-                mapTypeId: 'roadmap'
-            });
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                googleMap = new google.maps.Map(document.getElementById('map'), {
+                    center: {
+                        lat: -33.8688,
+                        lng: 151.2195
+                    },
+                    zoom: 13,
+                    mapTypeId: 'roadmap',
+                    styles: [{
+                            elementType: "geometry",
+                            stylers: [{
+                                color: "#242f3e"
+                            }]
+                        },
+                        {
+                            elementType: "labels.text.stroke",
+                            stylers: [{
+                                color: "#242f3e"
+                            }]
+                        },
+                        {
+                            elementType: "labels.text.fill",
+                            stylers: [{
+                                color: "#746855"
+                            }]
+                        },
+                        {
+                            featureType: "administrative.locality",
+                            elementType: "labels.text.fill",
+                            stylers: [{
+                                color: "#d59563"
+                            }],
+                        },
+                        {
+                            featureType: "poi",
+                            elementType: "labels.text.fill",
+                            stylers: [{
+                                color: "#d59563"
+                            }],
+                        },
+                        {
+                            featureType: "poi.park",
+                            elementType: "geometry",
+                            stylers: [{
+                                color: "#263c3f"
+                            }],
+                        },
+                        {
+                            featureType: "poi.park",
+                            elementType: "labels.text.fill",
+                            stylers: [{
+                                color: "#6b9a76"
+                            }],
+                        },
+                        {
+                            featureType: "road",
+                            elementType: "geometry",
+                            stylers: [{
+                                color: "#38414e"
+                            }],
+                        },
+                        {
+                            featureType: "road",
+                            elementType: "geometry.stroke",
+                            stylers: [{
+                                color: "#212a37"
+                            }],
+                        },
+                        {
+                            featureType: "road",
+                            elementType: "labels.text.fill",
+                            stylers: [{
+                                color: "#9ca5b3"
+                            }],
+                        },
+                        {
+                            featureType: "road.highway",
+                            elementType: "geometry",
+                            stylers: [{
+                                color: "#746855"
+                            }],
+                        },
+                        {
+                            featureType: "road.highway",
+                            elementType: "geometry.stroke",
+                            stylers: [{
+                                color: "#1f2835"
+                            }],
+                        },
+                        {
+                            featureType: "road.highway",
+                            elementType: "labels.text.fill",
+                            stylers: [{
+                                color: "#f3d19c"
+                            }],
+                        },
+                        {
+                            featureType: "transit",
+                            elementType: "geometry",
+                            stylers: [{
+                                color: "#2f3948"
+                            }],
+                        },
+                        {
+                            featureType: "transit.station",
+                            elementType: "labels.text.fill",
+                            stylers: [{
+                                color: "#d59563"
+                            }],
+                        },
+                        {
+                            featureType: "water",
+                            elementType: "geometry",
+                            stylers: [{
+                                color: "#17263c"
+                            }],
+                        },
+                        {
+                            featureType: "water",
+                            elementType: "labels.text.fill",
+                            stylers: [{
+                                color: "#515c6d"
+                            }],
+                        },
+                        {
+                            featureType: "water",
+                            elementType: "labels.text.stroke",
+                            stylers: [{
+                                color: "#17263c"
+                            }],
+                        },
+                    ]
+                })
+            } else {
+                googleMap = new google.maps.Map(document.getElementById('map'), {
+                    center: {
+                        lat: -33.8688,
+                        lng: 151.2195
+                    },
+                    zoom: 13,
+                    mapTypeId: 'roadmap'
+                })
+            }
 
             // Create the search box and link it to the UI element.
             let input = document.getElementById('pac-input');
