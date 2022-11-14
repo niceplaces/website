@@ -4,11 +4,11 @@
 
 ## Discover the culture around you
 
-**Nice Places takes you to discover the places of interest in your area, telling you briefly their history and their characteristics.**
+**Nice Places helps you to discover the places of interest in your area briefly describing their history and characteristics.**
 
 ![Nice Places screenshots](https://github.com/niceplaces/.github/blob/main/profile/devices-en.png)
 
-This project was born in 2018 from the idea of two students from Siena, Italy to create an application for mobile devices able to let users discover the places of historical and cultural interest in their vicinity, providing brief descriptions about them.
+This project was born in 2018 from the idea of two students from Siena, Italy.  Our mission is to create a mobile application to help users discover historical and cultural places of interest in their vicinity and to provide brief information about them.
 
 *Nice Places is available as [Android app](https://play.google.com/store/apps/details?id=com.niceplaces.niceplaces) and as a [progressive web app](https://www.niceplaces.it/en/app/) in both Italian and English.*
 
@@ -24,4 +24,4 @@ The source code available in this repository is licensed under the [MIT license]
 
 *The profile photos of people appearing on the site are used under their permission and belong to them.*
 
-*The contens mentioned above MUST NOT be used outside the Nice Places project.*
+*The contents mentioned above MUST NOT be used outside the Nice Places project.*
