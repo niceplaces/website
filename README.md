@@ -40,3 +40,5 @@ The source code available in this repository is licensed under the [MIT license]
 5. Open `http://localhost/niceplaces-website/` in your browser.
 
 *TODO: add the instructions to configure the local MySQL database and a Google Maps API key*
+
+Do you want to contribute to Niceplaces [Contributing Guidelines](https://github.com/Deepu178/Niceplaces/blob/main/contributing.md)
