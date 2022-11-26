@@ -83,6 +83,12 @@ require_once '../data/protected/config.php';
             </div>
             <div class="row">
                 <div class="col">
+                    <label for="r_name_en">Nome in inglese</label>
+                    <input type="text" class="form-control" id="r_name_en">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
                     <label for="r_id_string">id_string</label>
                     <input type="text" class="form-control" id="r_id_string">
                 </div>
@@ -129,6 +135,12 @@ require_once '../data/protected/config.php';
                             <option selected>Seleziona...</option>
                         </select>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="a_name_en">Nome in inglese</label>
+                    <input type="text" class="form-control" id="a_name_en">
                 </div>
             </div>
             <div class="row">
@@ -363,7 +375,7 @@ require_once '../data/protected/config.php';
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Chiudi</button>
-                    <button type="button" class="btn btn-outline-primary" id="modal_areas_save">Salva</button>
+                    <button type="button" class="btn btn-outline-primary" id="modal_regions_save">Salva</button>
                 </div>
             </div>
         </div>

@@ -187,6 +187,7 @@ $(document).ready(function () {
     $("#r_region").change(function () {
         const id_region = $(this).val()
         selectedRegion = $.extend(true, {}, loadedRegions.filter((x) => x.id == id_region)[0]);
+        $('#r_name_en').val(selectedRegion.name_en)
         $('#r_id_string').val(selectedRegion.id_string)
         $('#r_id_string_en').val(selectedRegion.id_string_en)
     });
@@ -206,6 +207,7 @@ $(document).ready(function () {
     $("#a_area").change(function () {
         const id_area = $(this).val();
         selectedArea = $.extend(true, {}, loadedAreas.filter((x) => x.id == id_area)[0]);
+        $('#a_name_en').val(selectedArea.name_en)
         $('#a_id_string').val(selectedArea.id_string)
         $('#a_id_string_en').val(selectedArea.id_string_en)
     });
@@ -228,6 +230,7 @@ $(document).ready(function () {
     $("#btn_r_save").click(function () {
         const modal = $("#modal_save")
         modal.modal("show")
+        selectedRegion.name_en = $("#r_name_en").val().replace(/'/g, "\\'")
         selectedRegion.id_string = $("#r_id_string").val().replace(/'/g, "\\'")
         selectedRegion.id_string_en = $("#r_id_string_en").val().replace(/'/g, "\\'")
         $.ajax({
@@ -239,6 +242,7 @@ $(document).ready(function () {
             success: function (result) {
                 console.log(result);
                 modalSaveReturn(true)
+                loadRegionsList()
             },
             error: function (error) {
                 console.log(error);
@@ -250,6 +254,7 @@ $(document).ready(function () {
     $("#btn_a_save").click(function () {
         const modal = $("#modal_save")
         modal.modal("show")
+        selectedArea.name_en = $("#a_name_en").val().replace(/'/g, "\\'")
         selectedArea.id_string = $("#a_id_string").val().replace(/'/g, "\\'");;
         selectedArea.id_string_en = $("#a_id_string_en").val().replace(/'/g, "\\'");;
         $.ajax({
@@ -261,6 +266,7 @@ $(document).ready(function () {
             success: function (result) {
                 console.log(result);
                 modalSaveReturn(true)
+                loadAreasList(selectedArea.id_region)
             },
             error: function (error) {
                 console.log(error);
@@ -426,9 +432,9 @@ $(document).ready(function () {
 
     $("#modal_regions_save").click(function () {
         const modal = $("#modal_regions");
-        const name = $("#regions_to_add").val().replace(/'/g, "\\'");
+        const name = $("#region_to_add").val().replace(/'/g, "\\'");
         $.ajax({
-            url: base_url + "data/query.php?version=v3&mode=debug&p1=insertarea&p2=" + name,
+            url: base_url + "data/query.php?version=v3&mode=debug&p1=insertregion&p2=" + name,
             type: "GET",
             contentType: "application/json",
             success: function (result) {

@@ -15,8 +15,8 @@ class DaoAreas {
     }
 
     function insert($id_region, $name){
-        $sql = "INSERT INTO ".$this->table_areas." (id, name, name_en, id_region, image) 
-                VALUES (NULL, '', '', '".$name."', '', '" . $id_region . "', '');";
+        $sql = "INSERT INTO ".$this->table_areas." (id, id_string, id_string_en, name, name_en, id_region, latitude, longitude, image, img_credits)
+                VALUES (NULL, '', '', '".$name."', '', '" . $id_region . "', 0, 0, '', '');";
         $result = $this->connection->query($sql);
         return $result;
     }
