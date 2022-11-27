@@ -521,24 +521,39 @@ require_once "utils.php";
                     <div class="col d-flex justify-content-center">
                         <?php
                         contributor_small(
-                            "Lorenzo",
+                            "Lorenzo Vainigli",
                             $BASE_URL . "assets/profile-pictures/lorenzo.jpg",
                             "https://www.lorenzovainigli.com"
                         );
                         contributor_small(
-                            "Dario",
+                            "Dario Chesi",
                             $BASE_URL . "assets/profile-pictures/dario.jpg",
                             "https://www.instagram.com/chesidario/"
                         );
                         contributor_small(
-                            "Francesca",
+                            "Francesca Mecacci",
                             $BASE_URL . "assets/profile-pictures/francesca.jpg",
                             "https://www.linkedin.com/in/f-mecacci/"
                         );
                         contributor_small(
-                            "Melania",
+                            "Melania Anichini",
                             $BASE_URL . "assets/profile-pictures/melania.jpg",
                             "https://www.facebook.com/melania.anichini"
+                        );
+                        contributor_small(
+                            "Kristen Wilkinson",
+                            "https://avatars.githubusercontent.com/u/96791049?v=4",
+                            "https://github.com/kselena"
+                        );
+                        contributor_small(
+                            "Raphael Ayorinde",
+                            "https://avatars.githubusercontent.com/u/106425235?v=4",
+                            "https://github.com/rafikimask"
+                        );
+                        contributor_small(
+                            "Deependra Kumar",
+                            "https://avatars.githubusercontent.com/u/68677868?v=4",
+                            "https://github.com/Deepu178"
                         );
                         ?>
                     </div>
@@ -576,7 +591,7 @@ require_once "utils.php";
             <div class="row counters">
                 <div class="col">
                     <h4><?php echo t("luoghi") ?></h4>
-                    <h1 class="counter-plus" data-count="500">0</h1>
+                    <h1 class="counter-plus" data-count="600">0</h1>
                 </div>
                 <div class="col">
                     <h4><?php echo t("descrizioni") ?></h4>
@@ -584,7 +599,7 @@ require_once "utils.php";
                 </div>
                 <div class="col">
                     <h4><?php echo t("download") ?></h4>
-                    <h1 class="counter-plus" data-count="1100">0</h1>
+                    <h1 class="counter-plus" data-count="1200">0</h1>
                 </div>
             </div>
         </section>
