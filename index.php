@@ -510,79 +510,79 @@ require_once "utils.php";
                     </div>
                 </div>
         </div>
-        <div class="row">
-            <div class="col-12 col-lg-6">
-                <div class="colrow">
-                    <div class="col" style="margin-bottom: 10px">
-                        <h5 style="text-align: center"><?php echo t("persone") ?></h5>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="colrow">
+                        <div class="col" style="margin-bottom: 10px">
+                            <h5 style="text-align: center"><?php echo t("persone") ?></h5>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center about-us">
+                            <?php
+                            contributor_small(
+                                "Lorenzo Vainigli",
+                                $BASE_URL . "assets/profile-pictures/lorenzo.jpg",
+                                "https://www.lorenzovainigli.com"
+                            );
+                            contributor_small(
+                                "Dario Chesi",
+                                $BASE_URL . "assets/profile-pictures/dario.jpg",
+                                "https://www.instagram.com/chesidario/"
+                            );
+                            contributor_small(
+                                "Francesca Mecacci",
+                                $BASE_URL . "assets/profile-pictures/francesca.jpg",
+                                "https://www.linkedin.com/in/f-mecacci/"
+                            );
+                            contributor_small(
+                                "Melania Anichini",
+                                $BASE_URL . "assets/profile-pictures/melania.jpg",
+                                "https://www.facebook.com/melania.anichini"
+                            );
+                            contributor_small(
+                                "Kristen Wilkinson",
+                                "https://avatars.githubusercontent.com/u/96791049?v=4",
+                                "https://github.com/kselena"
+                            );
+                            contributor_small(
+                                "Raphael Ayorinde",
+                                "https://avatars.githubusercontent.com/u/106425235?v=4",
+                                "https://github.com/rafikimask"
+                            );
+                            contributor_small(
+                                "Deependra Kumar",
+                                "https://avatars.githubusercontent.com/u/68677868?v=4",
+                                "https://github.com/Deepu178"
+                            );
+                            ?>
                     </div>
                 </div>
-                <div class="row about-us">
-                    <div class="col d-flex justify-content-center">
+                <div class="col-12 col-lg-6">
+                    <div class="colrow">
+                        <div class="col" style="margin-bottom: 10px">
+                            <h5 style="text-align: center"><?php echo t("associazioni") ?></h5>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center about-us">
                         <?php
                         contributor_small(
-                            "Lorenzo Vainigli",
-                            $BASE_URL . "assets/profile-pictures/lorenzo.jpg",
-                            "https://www.lorenzovainigli.com"
+                            "Pro Loco Sovicille",
+                            $BASE_URL . "assets/icons/proloco.png",
+                            "https://www.prolocosovicille.it/"
                         );
                         contributor_small(
-                            "Dario Chesi",
-                            $BASE_URL . "assets/profile-pictures/dario.jpg",
-                            "https://www.instagram.com/chesidario/"
+                            "Cammino d'Etruria",
+                            $BASE_URL . "assets/icons/cammino-d-etruria.jpg",
+                            "https://www.facebook.com/camminodetruria/"
                         );
                         contributor_small(
-                            "Francesca Mecacci",
-                            $BASE_URL . "assets/profile-pictures/francesca.jpg",
-                            "https://www.linkedin.com/in/f-mecacci/"
-                        );
-                        contributor_small(
-                            "Melania Anichini",
-                            $BASE_URL . "assets/profile-pictures/melania.jpg",
-                            "https://www.facebook.com/melania.anichini"
-                        );
-                        contributor_small(
-                            "Kristen Wilkinson",
-                            "https://avatars.githubusercontent.com/u/96791049?v=4",
-                            "https://github.com/kselena"
-                        );
-                        contributor_small(
-                            "Raphael Ayorinde",
-                            "https://avatars.githubusercontent.com/u/106425235?v=4",
-                            "https://github.com/rafikimask"
-                        );
-                        contributor_small(
-                            "Deependra Kumar",
-                            "https://avatars.githubusercontent.com/u/68677868?v=4",
-                            "https://github.com/Deepu178"
+                            "Pro Loco Murlo",
+                            $BASE_URL . "assets/icons/proloco-murlo.jpeg",
+                            "https://prolocomurlo.it/"
                         );
                         ?>
                     </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="colrow">
-                    <div class="col" style="margin-bottom: 10px">
-                        <h5 style="text-align: center"><?php echo t("associazioni") ?></h5>
-                    </div>
-                </div>
-                <div class="row justify-content-center about-us">
-                    <?php
-                    contributor_small(
-                        "Pro Loco Sovicille",
-                        $BASE_URL . "assets/icons/proloco.png",
-                        "https://www.prolocosovicille.it/"
-                    );
-                    contributor_small(
-                        "Cammino d'Etruria",
-                        $BASE_URL . "assets/icons/cammino-d-etruria.jpg",
-                        "https://www.facebook.com/camminodetruria/"
-                    );
-                    contributor_small(
-                        "Pro Loco Murlo",
-                        $BASE_URL . "assets/icons/proloco-murlo.jpeg",
-                        "https://prolocomurlo.it/"
-                    );
-                    ?>
                 </div>
             </div>
         </div>
