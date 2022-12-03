@@ -130,6 +130,11 @@ class DaoPlacesV3
         $min_lat = $lat - $km_radius / $km_per_lat_degree;
         $max_lon = $lon + $km_radius / $km_per_lon_degree;
         $min_lon = $lon - $km_radius / $km_per_lon_degree;
+        if ($max_lon < $min_lon){
+            $tmp = $max_lon;
+            $max_lon = $min_lon;
+            $min_lon = $tmp;
+        }
         $sql = "SELECT *, places.id AS id, places.id_string AS id_string_place, areas.id_string AS id_string_area,
                 places.name AS name, places.name_en AS name_en, places.latitude AS latitude, places.longitude AS longitude, 
                 places.image AS image, description, description_en,
