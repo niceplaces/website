@@ -642,6 +642,8 @@ class DaoPlacesV3
                     'region_en' => $row["region_name_en"],
                     'image' => $row["image"],
                     'author' => $row["id_author"],
+                    'wiki_url' => $row["wiki_url"],
+                    'wiki_url_en' => $row["wiki_url_en"],
                     'has_description' => $hasDescription,
                     'has_description_en' => $hasDescriptionEn,
                 );
@@ -660,6 +662,8 @@ class DaoPlacesV3
                     'region_en' => $row["region_name_en"],
                     'image' => $row["image"],
                     'author' => $row["id_author"],
+                    'wiki_url' => $row["wiki_url"],
+                    'wiki_url_en' => $row["wiki_url_en"],
                     'has_description' => $hasDescription,
                     'has_description_en' => $hasDescriptionEn,
                 );
@@ -680,6 +684,8 @@ class DaoPlacesV3
                     'region_en' => $row["region_name_en"],
                     'image' => $row["image"],
                     'author' => $row["id_author"],
+                    'wiki_url' => $row["wiki_url"],
+                    'wiki_url_en' => $row["wiki_url_en"],
                     'has_description' => $hasDescription,
                     'has_description_en' => $hasDescriptionEn,
                 );
