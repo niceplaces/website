@@ -1,0 +1,132 @@
+RewriteEngine On
+#RewriteBase /
+RewriteBase /niceplaces
+
+# Force to load with HTTPS
+RewriteCond %{HTTP:X-Forwarded-Proto} =http
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Login & logout
+RewriteRule ^debug/register$ data/query.php?version=v3&mode=debug&p1=register [NC,L]
+RewriteRule ^debug/login$ data/query.php?version=v3&mode=debug&p1=login [NC,L]
+RewriteRule ^debug/logout$ data/query.php?version=v3&mode=debug&p1=logout [NC,L]
+
+RewriteRule ^home\.html$ 401.html [NC,L]
+
+RewriteRule ^en/$ index.php [NC,L]
+RewriteRule ^privacy$ privacy_policy.html [NC,L]
+RewriteRule ^en/privacy$ en/privacy_policy.html [NC,L]
+RewriteRule ^mappa$ map.html [NC,L]
+RewriteRule ^esplora/$ app/explore.php [NC,L]
+RewriteRule ^speech/$ speech/index.html [NC,L]
+RewriteRule ^app/$ app/index.php [NC,L]
+RewriteRule ^en/app/$ app/index.php [NC,L]
+RewriteRule ^en/explore/$ explore.php [NC,L]
+RewriteRule ^app/luoghi-intorno-a-te$ app/luoghi-intorno.php [NC,L]
+RewriteRule ^en/app/places-around-you$ app/luoghi-intorno.php [NC,L]
+RewriteRule ^editor/$ editor/index.php [NC,L]
+
+RewriteRule ^en/([a-z|0-9|-]+)/$ app/area.php?id=$1 [NC,L]
+RewriteRule ^([a-z|0-9|-]+)/$ app/area.php?id=$1 [NC,L]
+RewriteRule ^en/([a-z|-]+)/([a-z|-]+)$ app/place.php [NC,L]
+RewriteRule ^([a-z|-]+)/([a-z|-]+)$ app/place.php [NC,L]
+
+
+###### V2 #####
+
+RewriteRule ^data/v2/release/places$ data/query.php?version=v2&mode=release&p1=getplaces [NC,L]
+RewriteRule ^data/v2/debug/places$ data/query.php?version=v2&mode=debug&p1=getplaces [NC,L]
+
+RewriteRule ^data/v2/release/places/([0-9]+)$ data/query.php?version=v2&mode=release&p1=getplacesbyid&p2=$1 [NC,L]
+RewriteRule ^data/v2/debug/places/([0-9]+)$ data/query.php?version=v2&mode=debug&p1=getplacesbyid&p2=$1 [NC,L]
+
+RewriteRule ^data/v2/debug/places/([0-9]+)/update$ data/query.php?version=v2&mode=debug&p1=updateplace&p2=$1 [NC,L]
+RewriteRule ^data/v2/debug/places/([0-9]+)/events/update$ data/query.php?version=v2&mode=debug&p1=updateevents&p2=$1 [NC,L]
+
+RewriteRule ^data/v2/release/regions$ data/query.php?version=v2&mode=release&p1=getregions [NC,L]
+RewriteRule ^data/v2/debug/regions$ data/query.php?version=v2&mode=debug&p1=getregions [NC,L]
+
+RewriteRule ^data/v2/release/regions/([0-9]+)$ data/query.php?version=v2&mode=release&p1=getareasbyregion&p2=$1 [NC,L]
+RewriteRule ^data/v2/debug/regions/([0-9]+)$ data/query.php?version=v2&mode=debug&p1=getareasbyregion&p2=$1 [NC,L]
+
+RewriteRule ^data/v2/release/areas$ data/query.php?version=v2&mode=release&p1=getareas [NC,L]
+RewriteRule ^data/v2/debug/areas$ data/query.php?version=v2&mode=debug&p1=getareas [NC,L]
+
+RewriteRule ^data/v2/release/areas/([0-9]+)$ data/query.php?version=v2&mode=release&p1=getplacesbyarea&p2=$1 [NC,L]
+RewriteRule ^data/v2/debug/areas/([0-9]+)$ data/query.php?version=v2&mode=debug&p1=getplacesbyarea&p2=$1 [NC,L]
+
+RewriteRule ^data/v2/debug/stats$ data/query.php?version=v2&mode=debug&p1=getstats [NC,L]
+RewriteRule ^data/v2/debug/lastchanges$ data/query.php?version=v2&mode=debug&p1=getlastchanges [NC,L]
+RewriteRule ^data/v2/debug/lastinserted$ data/query.php?version=v2&mode=debug&p1=getlastinserted [NC,L]
+RewriteRule ^data/v2/debug/lastupdated$ data/query.php?version=v2&mode=debug&p1=getlastupdated [NC,L]
+RewriteRule ^data/debug/photos$ data/query.php?version=v2&mode=debug&p1=getphotos [NC,L]
+RewriteRule ^data/v2/debug/placeoftheday$ data/query.php?version=v2&mode=debug&p1=getplaceoftheday [NC,L]
+RewriteRule ^data/v2/release/placeoftheday$ data/query.php?version=v2&mode=release&p1=getplaceoftheday [NC,L]
+RewriteRule ^data/v2/debug/placeoftheday-en$ data/query.php?version=v2&mode=debug&p1=getplaceofthedayen [NC,L]
+RewriteRule ^data/v2/release/placeoftheday-en$ data/query.php?version=v2&mode=release&p1=getplaceofthedayen [NC,L]
+
+
+###### V3 #####
+
+RewriteRule ^data/v3/release/places$ data/query.php?version=v3&mode=release&p1=getplaces [NC,L]
+RewriteRule ^data/v3/debug/places$ data/query.php?version=v3&mode=debug&p1=getplaces [NC,L]
+
+RewriteRule ^data/v3/release/places/([0-9]+)$ data/query.php?version=v3&mode=release&p1=getplacesbyid&p2=$1 [NC,L]
+RewriteRule ^data/v3/debug/places/([0-9]+)$ data/query.php?version=v3&mode=debug&p1=getplacesbyid&p2=$1 [NC,L]
+
+RewriteRule ^data/v3/debug/places/([a-z|-]+)/([a-z|-]+)$ data/query.php?version=v3&mode=debug&p1=getplacesbyidstring&p2=$1&p3=$2 [NC,L]
+RewriteRule ^data/v3/debug/places/([a-z|-]+)$ data/query.php?version=v3&mode=debug&p1=getplacesbyareaidstring&p2=$1 [NC,L]
+
+RewriteRule ^data/v3/release/places/([a-z|-]+)/([a-z|-]+)$ data/query.php?version=v3&mode=release&p1=getplacesbyidstring&p2=$1&p3=$2 [NC,L]
+RewriteRule ^data/v3/release/places/([a-z|-]+)$ data/query.php?version=v3&mode=release&p1=getplacesbyareaidstring&p2=$1 [NC,L]
+
+RewriteRule ^data/v3/debug/places/([0-9]+)/update$ data/query.php?version=v3&mode=debug&p1=updateplace&p2=$1 [NC,L]
+RewriteRule ^data/v3/debug/places/([0-9]+)/events/update$ data/query.php?version=v3&mode=debug&p1=updateevents&p2=$1 [NC,L]
+
+RewriteRule ^data/v3/release/regions$ data/query.php?version=v3&mode=release&p1=getregions [NC,L]
+RewriteRule ^data/v3/debug/regions$ data/query.php?version=v3&mode=debug&p1=getregions [NC,L]
+
+RewriteRule ^data/v3/release/regions/([0-9]+)$ data/query.php?version=v3&mode=release&p1=getareasbyregion&p2=$1 [NC,L]
+RewriteRule ^data/v3/debug/regions/([0-9]+)$ data/query.php?version=v3&mode=debug&p1=getareasbyregion&p2=$1 [NC,L]
+
+RewriteRule ^data/v3/release/areas$ data/query.php?version=v3&mode=release&p1=getareas [NC,L]
+RewriteRule ^data/v3/debug/areas$ data/query.php?version=v3&mode=debug&p1=getareas [NC,L]
+
+RewriteRule ^data/v3/release/areas/([0-9]+)$ data/query.php?version=v3&mode=release&p1=getplacesbyarea&p2=$1 [NC,L]
+RewriteRule ^data/v3/debug/areas/([0-9]+)$ data/query.php?version=v3&mode=debug&p1=getplacesbyarea&p2=$1 [NC,L]
+
+RewriteRule ^data/v3/debug/lists$ data/query.php?version=v3&mode=debug&p1=getlists [NC,L]
+RewriteRule ^data/v3/release/lists$ data/query.php?version=v3&mode=release&p1=getlists [NC,L]
+
+RewriteRule ^data/v3/debug/lists/([0-9]+)$ data/query.php?version=v3&mode=debug&p1=getplacesbylist&p2=$1 [NC,L]
+RewriteRule ^data/v3/release/lists/([0-9]+)$ data/query.php?version=v3&mode=release&p1=getplacesbylist&p2=$1 [NC,L]
+
+RewriteRule ^data/v3/debug/search/(([A-Za-z]|\+)+)$ data/query.php?version=v3&mode=debug&p1=getsearchresults&p2=$1 [NC,L]
+RewriteRule ^data/v3/release/search/(([A-Za-z]|\+)+)$ data/query.php?version=v3&mode=release&p1=getsearchresults&p2=$1 [NC,L]
+
+RewriteRule ^data/v3/debug/quiz/$ data/query.php?version=v3&mode=debug&p1=getquiz [NC,L]
+RewriteRule ^data/v3/release/quiz/$ data/query.php?version=v3&mode=release&p1=getquiz [NC,L]
+
+RewriteRule ^data/v3/debug/stats$ data/query.php?version=v3&mode=debug&p1=getstats [NC,L]
+RewriteRule ^data/v3/debug/lastchanges$ data/query.php?version=v3&mode=debug&p1=getlastchanges [NC,L]
+RewriteRule ^data/v3/debug/lastinserted$ data/query.php?version=v3&mode=debug&p1=getlastinserted [NC,L]
+RewriteRule ^data/v3/debug/lastupdated$ data/query.php?version=v3&mode=debug&p1=getlastupdated [NC,L]
+RewriteRule ^data/debug/photos$ data/query.php?version=v3&mode=debug&p1=getphotos [NC,L]
+RewriteRule ^data/v3/debug/placeoftheday$ data/query.php?version=v3&mode=debug&p1=getplaceoftheday [NC,L]
+RewriteRule ^data/v3/release/placeoftheday$ data/query.php?version=v3&mode=release&p1=getplaceoftheday [NC,L]
+RewriteRule ^data/v3/debug/placeoftheday-en$ data/query.php?version=v3&mode=debug&p1=getplaceofthedayen [NC,L]
+RewriteRule ^data/v3/release/placeoftheday-en$ data/query.php?version=v3&mode=release&p1=getplaceofthedayen [NC,L]
+RewriteRule ^data/v3/debug/latestinserted$ data/query.php?version=v3&mode=debug&p1=getlatestinserted [NC,L]
+RewriteRule ^data/v3/release/latestinserted$ data/query.php?version=v3&mode=release&p1=getlatestinserted [NC,L]
+RewriteRule ^data/v3/debug/latestupdated$ data/query.php?version=v3&mode=debug&p1=getlatestupdated [NC,L]
+RewriteRule ^data/v3/release/latestupdated$ data/query.php?version=v3&mode=release&p1=getlatestupdated [NC,L]
+
+
+###### V4 #####
+
+RewriteRule ^data/v4/debug/quiz/$ data/query.php?version=v4&mode=debug&p1=getquiz [NC,L]
+RewriteRule ^data/v4/release/quiz/$ data/query.php?version=v4&mode=release&p1=getquiz [NC,L]
+
+
+
+php_value upload_max_filesize 5M
