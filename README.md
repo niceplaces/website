@@ -35,9 +35,9 @@ The source code available in this repository is licensed under the [MIT license]
     ```
 
 2. Download and install [XAMPP](https://www.apachefriends.org/it/index.html).
-3. Place the folder `niceplaces-website` in `htdocs` folder of XAMPP (e.g. in Windows the default path is `C:\xampp\htdocs`).
+3. Place the folder `niceplaces` in `htdocs` folder of XAMPP (e.g. in Windows the default path is `C:\xampp\htdocs`).
 4. Open *XAMPP Control Panel* and run *Apache* module.
-5. Open `http://localhost/niceplaces-website/` in your browser.
+5. Open `http://localhost/niceplaces/` in your browser.
 
 *TODO: add the instructions to configure the local MySQL database and a Google Maps API key*
 
