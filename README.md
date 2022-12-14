@@ -31,7 +31,7 @@ The source code available in this repository is licensed under the [MIT license]
 1. Clone the repository.
 
     ```bash
-    git clone https://github.com/niceplaces/website.git niceplaces-website
+    git clone https://github.com/niceplaces/website.git niceplaces
     ```
 
 2. Download and install [XAMPP](https://www.apachefriends.org/it/index.html).
