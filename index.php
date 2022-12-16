@@ -212,8 +212,9 @@ require_once "utils.php";
                                 </blockquote>
                             <?php break;
                             case "en": ?>
-                                <p>The artistic, historical and cultural richness is a very precious asset for our country, Italy 
-                                    as well as many others. Italy boasts one of the oldest cities in the world, San Marino.  </p>
+                                <p>The artistic, historical and cultural richness is a very precious asset for our country, Italy
+                                     as well as many others. According to the number of UNESCO sites by country, Italy ranks first 
+                                     in the world.</p>
                                 <p>We believe that knowing the history and the uniqueness of places around us is a way to gain 
                                     appreciation of not only a specific location, but the country as a whole. It can also be a 
                                     fun way to get excited about traveling and discovering new places that may not be very well 
