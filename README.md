@@ -47,4 +47,4 @@ The source code available in this repository is licensed under the [MIT license]
 
 ## 🤝 Contributing
 
-Do you want to contribute to this repository? You are welcome! Read the [Contributing Guidelines](https://github.com/niceplaces/website/blob/main/contributing.md), fork this repository, create your own branch, make your changes and make a pull request!.
+Do you want to contribute to this repository? You are welcome! Read the [Contributing Guidelines](https://github.com/niceplaces/website/blob/main/CONTRIBUTING.md), fork this repository, create your own branch, make your changes and make a pull request!.
