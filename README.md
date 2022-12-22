@@ -1,10 +1,14 @@
-# Nice Places website
-
-![GitHub repo size](https://img.shields.io/github/repo-size/niceplaces/website)
+# Nice Places Website
 
 ## Discover the culture around you
 
 **Nice Places helps you to discover the places of interest in your area briefly describing their history and characteristics.**
+
+![Places](https://img.shields.io/endpoint?url=https%3A%2F%2Fwww.niceplaces.it%2Fdata%2Fshields_endpoint.php%3Fparam%3Dplaces_count)
+![Descriptions](https://img.shields.io/endpoint?url=https%3A%2F%2Fwww.niceplaces.it%2Fdata%2Fshields_endpoint.php%3Fparam%3Ddescriptions_count)
+[![Downloads on Google Play](https://img.shields.io/endpoint?url=https%3A%2F%2Fwww.niceplaces.it%2Fdata%2Fshields_endpoint.php%3Fparam%3Ddownloads&logo=googleplay)](https://play.google.com/store/apps/details?id=com.niceplaces.niceplaces)
+[![Contributors](https://img.shields.io/endpoint?url=https%3A%2F%2Fwww.niceplaces.it%2Fdata%2Fshields_endpoint.php%3Fparam%3Dcontributors&logo=awsj)](https://github.com/niceplaces/website/blob/main/AUTHORS.md)
+![GitHub repo size](https://img.shields.io/github/repo-size/niceplaces/website)
 
 ![Nice Places screenshots](https://github.com/niceplaces/.github/blob/main/profile/devices-en.png)
 
@@ -16,7 +20,7 @@ In 2022, the project became open source to allow anyone to contribute.
 
 [Join the Discord channel](https://discord.gg/p9fC72mzDX)
 
-## Copyright notice
+## 📝 Copyright notice
 
 The source code available in this repository is licensed under the [MIT license](https://github.com/niceplaces/website/blob/main/LICENSE), however this repository contains digital assets to which the following terms apply.
 
@@ -41,6 +45,6 @@ The source code available in this repository is licensed under the [MIT license]
 
 *TODO: add the instructions to configure the local MySQL database and a Google Maps API key*
 
-Do you want to contribute to [Nice Places Website](https://github.com/niceplaces/website)?
-Read the guidelines that how you can contribute to [Nice Places Website](https://github.com/niceplaces/website):
- [Contributing Guidelines](https://github.com/Deepu178/Niceplaces/blob/main/contributing.md)
+## 🤝 Contributing
+
+Do you want to contribute to this repository? You are welcome! Read the [Contributing Guidelines](https://github.com/niceplaces/website/blob/main/contributing.md), fork this repository, create your own branch, make your changes and make a pull request!.
