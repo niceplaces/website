@@ -212,22 +212,17 @@ require_once "utils.php";
                                 </blockquote>
                             <?php break;
                             case "en": ?>
-                                <p>The artistic, historical and cultural richness is a very precious asset for all of our
-                                    country, Italy.
-                                    According to this parameter, Italy is the first country in the world. </p>
-                                <p>We believe that knowing the history and the particularities of the numerous places around us
-                                    is a way
-                                    to appreciate more what surrounds us.
-                                    It can also be a fun way to travel, get excited and discover places that are not very well
-                                    known, but
-                                    no less interesting.</p>
-                                <p>With Nice Places, for example, you can walk in the historic center of a city, you can consult
-                                    the app
-                                    to find out which places to visit, choose one and activate the navigator to reach it and
-                                    when you are
-                                    near a point of interest, you can open the description on the mobile phone to get a brief
-                                    overview of
-                                    what you are observing.</p>
+                                <p>The artistic, historical and cultural richness is a very precious asset for our country, Italy
+                                     as well as many others. According to the number of UNESCO sites by country, Italy ranks first 
+                                     in the world.</p>
+                                <p>We believe that knowing the history and the uniqueness of places around us is a way to gain 
+                                    appreciation of not only a specific location, but the country as a whole. It can also be a 
+                                    fun way to get excited about traveling and discovering new places that may not be very well 
+                                    known, but no less interesting.</p>
+                                <p>The Nice Places app lists a multitude of places to visit, includes a picture of the location, 
+                                    offers directions, a brief overview of that location and much more!  When you are in the app, 
+                                    choose your point of interest and activate the navigator to reach it.  When you arrive to your
+                                     point of interest, the Nice Places app offers a historical overview of your destination.</p>
                                 <blockquote>
                                     <div class="quote">They are wonders distributed a little in all our regions, which is rare
                                         because
