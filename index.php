@@ -271,11 +271,9 @@ require_once "utils.php";
                                     navigatore.
                                 <?php break;
                                 case "en": ?>
-                                    Using location services provided by your mobile phone you can view a map that shows where you can
-                                    find the places that are registered on Nice Places. Below the map you can view a list of places
-                                    ordered by distance from you.
-                                    Touching a place on the map or from the list you can open the card of the place and then the
-                                    navigator.
+                                    You can find the points of interest that are registered on Nice Places by using your mobile phone's map service.  
+	                                Below the map, is a list of places in order by distance from you.  Clicking the point of interest from the map or 
+	                                the list shows the map view. If you want to navigate to that location, click on the map, then start navigation.
                             <?php } ?></p>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
@@ -288,8 +286,7 @@ require_once "utils.php";
                                     con un "tap" su un luogo si può aprire la relativa scheda e consultarne la descrizione.
                                 <?php break;
                                 case "en": ?>
-                                    With this feature you can consult the list of places divided by areas. Touching a place on the list,
-                                    like the previous function, you can open its card and read the description.
+                                    This feature lets you search for a place or choose from a list of that is divided by city and country.
                             <?php } ?></p>
                     </div>
                     <div class="col-md-12 col-lg-6">
@@ -301,8 +298,8 @@ require_once "utils.php";
                                     vedere quali sono gli ultimi luoghi inseriti e gli ultimi luoghi aggiornati.
                                 <?php break;
                                 case "en": ?>
-                                    We periodically add new points of interest and new descriptions. With this function you can see
-                                    which are the latest places inserted and the latest places updated.
+                                    This section offers the latest addtions and updates to Nice Places. We periodically update our app 
+	                                with new points of interest and their histories. 
                             <?php } ?>
 
                         </p>
@@ -319,8 +316,7 @@ require_once "utils.php";
                                     ricevere comunque i nostri aggiornamenti.
                                 <?php break;
                                 case "en": ?>
-                                    The application allows us to tell you all the latest news about Nice Places through notifications
-                                    on your device, so you can stay always up-to-date!
+                                    Stay up-to-date with the latest news with notifications from Nice Places!
                             <?php } ?>
                         </p>
                     </div>
