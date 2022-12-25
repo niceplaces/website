@@ -3,6 +3,7 @@
  * @par GET file: filename of the source image
  * @par GET w: width of the output image
  * @par GET h: height of the output image
+ * @par GET shape: if is "circle", output the image as a circle
  * 
  * Partially copied from: https://gist.github.com/janzikan/2994977
  */
@@ -18,6 +19,8 @@ $im = null;
 
 if (!isset($_GET["file"]) || strcmp($_GET["file"], "") == 0){
     $im =  imagecreatefromstring(file_get_contents("../assets/placeholder.jpg"));
+} else if (str_starts_with($_GET['file'], "http")){
+    $im =  imagecreatefromstring(file_get_contents($_GET['file']));
 } else {
     $im =  imagecreatefromstring(file_get_contents('photos/'.$_GET['mode'].'/'.$_GET['file']));
 }
@@ -94,15 +97,17 @@ if (isset($_GET["w"]) && isset($_GET["h"])){
         }
         while (imagecolorexact($im, $r, $g, $b) < 0);
 
-        /*$mask = imagecreatetruecolor($cropWidth, $cropHeight);
-        $transparent = imagecolorallocate($mask, $r, $g, $b);
-        $black = imagecolorallocate($mask, 0, 0, 0);
-        imagefill($mask, 0, 0, $transparent);
-        imagefilledellipse($mask, $cropWidthHalf, $cropHeightHalf, $cropWidth, $cropHeight, $black);
-        imagecolortransparent($mask, $black);
-        imageantialias($mask, true);
-        imagecopymerge($temp, $mask, 0, 0, 0, 0, $cropWidth, $cropHeight, 100);
-        imagecolortransparent($temp, $transparent);*/
+        if (isset($_GET["shape"]) && $_GET["shape"] == "circle"){
+            $mask = imagecreatetruecolor($cropWidth, $cropHeight);
+            $transparent = imagecolorallocate($mask, $r, $g, $b);
+            $black = imagecolorallocate($mask, 0, 0, 0);
+            imagefill($mask, 0, 0, $transparent);
+            imagefilledellipse($mask, $cropWidthHalf, $cropHeightHalf, $cropWidth, $cropHeight, $black);
+            imagecolortransparent($mask, $black);
+            imageantialias($mask, true);
+            imagecopymerge($temp, $mask, 0, 0, 0, 0, $cropWidth, $cropHeight, 100);
+            imagecolortransparent($temp, $transparent);
+        }
     }
     if (!$DEBUG){
         // Output the image

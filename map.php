@@ -152,7 +152,7 @@ require_once 'data/protected/config.php';
             let markers = [];
             for (let i = 0; i < result.length; i++) {
                 let icon = {
-                    url: base_url + "data/image.php?mode=" + mode + "&file=" + result[i].image + "&w=200&h=200",
+                    url: base_url + "data/image.php?mode=" + mode + "&file=" + result[i].image + "&w=200&h=200&shape=circle",
                     scaledSize: new google.maps.Size(50, 50), // scaled size
                     origin: new google.maps.Point(0, 0), // origin
                     anchor: new google.maps.Point(25, 25) // anchor
